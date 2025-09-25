@@ -114,37 +114,67 @@
             <hr />
 
             <!-- Comments Section -->
-            <div class="comments">
-              <h4>Leave a Comment</h4>
-              <form action="save-comment.php" method="POST" class="php-email-form">
-                <input type="hidden" name="post_id" value="1"> <!-- change accordingly -->
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <textarea name="comment" rows="5" class="form-control" placeholder="Your Comment" required></textarea>
-                </div>
-                <div class="text-start">
-                  <button type="submit" class="btn btn-primary rounded-pill px-4">Submit</button>
-                </div>
-              </form>
+<div class="comments">
+<h4>Leave a Comment</h4>
+<form action="save-comment.php" method="POST" class="php-email-form">
+<input type="hidden" name="post_id" value="1"> <!-- change accordingly -->
+<div class="row">
+<div class="col-md-6 mb-3">
+<input type="text" name="name" class="form-control" placeholder="Your Name" required>
+</div>
+<div class="col-md-6 mb-3">
+<input type="email" name="email" class="form-control" placeholder="Your Email" required>
+</div>
+</div>
+<div class="mb-3">
+<textarea name="comment" rows="5" class="form-control" placeholder="Your Comment" required></textarea>
+</div>
+<div class="text-start">
+<button type="submit" class="btn btn-primary rounded-pill px-4">Submit</button>
+</div>
+</form>
 
-              <div class="comment-list mt-4">
-                <!-- Example comment -->
-                <div class="border p-3 rounded mb-3">
-                  <strong>Dr Njimia </strong>
-                  <p class="mb-1">Vet Doctor .</p>
-                  <small class="text-muted">Posted on 2025-08-21</small>
-                </div>
-                <!-- End example -->
-              </div>
-            </div>
-          </div>
+
+<div class="comment-list mt-4" id="comment-section">
+<!-- Comments will load here dynamically -->
+</div>
+
+
+</div>
+
+
+</div>
+</div>
+</div>
+</section>
+
+
+</main>
+
+
+<script>
+// Load comments from PHP backend
+const postId = 1;
+fetch(`load-comments.php?post_id=${postId}`)
+.then(response => response.json())
+.then(data => {
+const container = document.getElementById('comment-section');
+if (data.length === 0) {
+container.innerHTML = '<p>No comments yet. Be the first!</p>';
+} else {
+data.forEach(comment => {
+const div = document.createElement('div');
+div.classList.add('border', 'p-3', 'rounded', 'mb-3');
+div.innerHTML = `
+<strong>${comment.name}</strong>
+<p class="mb-1">${comment.comment}</p>
+<small class="text-muted">Posted on ${comment.created_at}</small>
+`;
+container.appendChild(div);
+});
+}
+});
+</script>
 
           <!-- Sidebar Section -->
           <div class="col-lg-4">

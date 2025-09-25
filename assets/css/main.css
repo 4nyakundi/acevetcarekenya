@@ -1771,3 +1771,29 @@ section,
   font-weight: 500;
   font-size: 14px;
 }
+
+
+
+/* Fix sidebar layout collapse issue */
+.blog-single .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.blog-single .col-lg-8 {
+  flex: 0 0 66.6667%; /* 8/12 */
+  max-width: 66.6667%;
+}
+
+.blog-single .col-lg-4 {
+  flex: 0 0 33.3333%; /* 4/12 */
+  max-width: 33.3333%;
+}
+@media (max-width: 768px) {
+  .blog-single .col-lg-8,
+  .blog-single .col-lg-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

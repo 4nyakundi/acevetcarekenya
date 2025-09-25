@@ -1,41 +1,31 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $to = "your@email.com"; // <-- Change this to your real email
+    $subject = "New Contact Message from Ace Vet Website";
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'contact@example.com';
+    // Sanitize input
+    $name = htmlspecialchars(strip_tags(trim($_POST["name"])));
+    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+    $subjectInput = htmlspecialchars(strip_tags(trim($_POST["subject"])));
+    $message = htmlspecialchars(strip_tags(trim($_POST["message"])));
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
+    // Compose email body
+    $email_content = "Name: $name\n";
+    $email_content .= "Email: $email\n";
+    $email_content .= "Subject: $subjectInput\n";
+    $email_content .= "Message:\n$message\n";
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
+    $headers = "From: $name <$email>";
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
-
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
-
-  echo $contact->send();
+    if (mail($to, $subject, $email_content, $headers)) {
+        http_response_code(200);
+        echo "Message sent successfully!";
+    } else {
+        http_response_code(500);
+        echo "Something went wrong. Message not sent.";
+    }
+} else {
+    http_response_code(403);
+    echo "Forbidden: You can't access this page directly.";
+}
 ?>
