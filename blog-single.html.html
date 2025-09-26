@@ -28,16 +28,10 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
- 
-  ======================================================== -->
 </head>
 
 <body class="index-page">
-
   <header id="header" class="header sticky-top">
-
     <div class="topbar d-flex align-items-center">
       <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
@@ -51,177 +45,123 @@
           <a href="#" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
         </div>
       </div>
-    </div><!-- End Top Bar -->
+    </div>
 
     <div class="branding d-flex align-items-center">
-
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center me-auto">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-           <img src="assets/assets/ACE VET CARE.png" alt="" data-aos="fade-in">
-          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <img src="assets/assets/ACE VET CARE.png" alt="" data-aos="fade-in">
           <h1 class="sitename">ACE VET CARE</h1>
         </a>
-
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="#hero" class="active">Home<br></a></li>
+            <li><a href="#hero" class="active">Home</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#services">Services Overview</a></li>
             <li><a href="#departments">Departments</a></li>
             <li><a href="#doctors">Doctors</a></li>
-            <li><a href="blog-details.html.html">Blog</a></li>
+            <li><a href="blog-details.html">Blog</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-
         <a class="cta-btn d-none d-sm-block" href="#appointment">Make an Appointment</a>
-
       </div>
-
     </div>
-
   </header>
 
-
-
-<body>
   <main class="main">
-    <!-- Page Title -->
     <div class="page-title py-5 text-center bg-light">
       <div class="container">
-        <h1 id="blog-title">5 Signs that you pet needs a vet</h1>
+        <h1 id="blog-title">5 Signs that your pet needs a vet</h1>
         <p class="text-muted">Posted on <span id="blog-date">2025/08/21</span> by <span id="blog-author">Dr K. Njimia</span></p>
       </div>
     </div>
+<!-- Blog Content -->
+<section class="section blog-single">
+  <div class="container">
+    <div class="row">
+    
+      <!-- MAIN BLOG CONTENT -->
+      <div class="col-lg-8">
+        <!-- Blog post image and content -->
+        <img id="blog-image" src="assets/assets/gal2.JPG" alt="Blog Image" class="img-fluid mb-4 rounded">
+        <div id="blog-content">
+          <p>At ACE VET CARE, we believe that every pet deserves...</p>
+        </div>
 
-    <!-- Blog Content -->
-    <section class="section blog-single">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <img id="blog-image" src="assets/assets/gal2.JPG" alt="Blog Image" class="img-fluid mb-4 rounded">
+        <hr />
 
-            <div id="blog-content">
-                <h2></h2>
-                
-                At ACE VET CARE, we believe that every pet deserves compassionate and comprehensive care. Our departments work together to provide a seamless experience, ensuring that your pet’s physical and emotional needs are met. Visit us today to learn more about our services and how we can help your pet live a happy, healthy life.
-                </p>
+        <!-- COMMENTS SECTION -->
+        <div class="comments">
+          <h4>Leave a Comment</h4>
+          <form action="save-comment.php" method="POST" class="php-email-form">
+            <input type="hidden" name="post_id" value="1">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+              </div>
             </div>
+            <div class="mb-3">
+              <textarea name="comment" rows="5" class="form-control" placeholder="Your Comment" required></textarea>
+            </div>
+            <div class="text-start">
+              <button type="submit" class="btn btn-primary rounded-pill px-4">Submit</button>
+            </div>
+          </form>
 
-            <hr />
-
-           
-            <!-- Comments Section -->
-<div class="comments">
-<h4>Leave a Comment</h4>
-<form action="save-comment.php" method="POST" class="php-email-form">
-<input type="hidden" name="post_id" value="1"> <!-- change accordingly -->
-<div class="row">
-<div class="col-md-6 mb-3">
-<input type="text" name="name" class="form-control" placeholder="Your Name" required>
-</div>
-<div class="col-md-6 mb-3">
-<input type="email" name="email" class="form-control" placeholder="Your Email" required>
-</div>
-</div>
-<div class="mb-3">
-<textarea name="comment" rows="5" class="form-control" placeholder="Your Comment" required></textarea>
-</div>
-<div class="text-start">
-<button type="submit" class="btn btn-primary rounded-pill px-4">Submit</button>
-</div>
-</form>
-
-
-<div class="comment-list mt-4" id="comment-section">
-<!-- Comments will load here dynamically -->
-</div>
-
-
-</div>
-
-
-</div>
-</div>
-</div>
-</section>
-
-
-</main>
-
-
-<script>
-// Load comments from PHP backend
-const postId = 1;
-fetch(`load-comments.php?post_id=${postId}`)
-.then(response => response.json())
-.then(data => {
-const container = document.getElementById('comment-section');
-if (data.length === 0) {
-container.innerHTML = '<p>No comments yet. Be the first!</p>';
-} else {
-data.forEach(comment => {
-const div = document.createElement('div');
-div.classList.add('border', 'p-3', 'rounded', 'mb-3');
-div.innerHTML = `
-<strong>${comment.name}</strong>
-<p class="mb-1">${comment.comment}</p>
-<small class="text-muted">Posted on ${comment.created_at}</small>
-`;
-container.appendChild(div);
-});
-}
-});
-</script>
-
-
-
-          <!-- Sidebar Section -->
-          <div class="col-lg-4">
-            <aside>
-              <div class="card mb-4">
-                <div class="card-header bg-primary text-white">Search</div>
-                <div class="card-body">
-                  <input type="text" class="form-control" placeholder="Search blogs...">
-                </div>
-              </div>
-
-              <div class="card mb-4">
-                <div class="card-header bg-primary text-white">Recent Posts</div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><a href="#">How to Prepare Your Pet for Surgery</a></li>
-                  <li class="list-group-item"><a href="#">5 Signs Your Dog Needs a Vet</a></li>
-                  <li class="list-group-item"><a href="#">Best Vaccines for Kittens</a></li>
-                </ul>
-              </div>
-
-              <div class="card mb-4">
-                <div class="card-header bg-primary text-white">Categories</div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><a href="#">Grooming</a></li>
-                  <li class="list-group-item"><a href="#">Vaccination</a></li>
-                  <li class="list-group-item"><a href="#">Nutrition</a></li>
-                  <li class="list-group-item"><a href="#">Surgery</a></li>
-                </ul>
-              </div>
-            </aside>
+          <div class="comment-list mt-4" id="comment-section">
+            <!-- Loaded comments appear here -->
           </div>
-
         </div>
       </div>
-    </section>
+
+      <!-- SIDEBAR -->
+      <div class="col-lg-4">
+        <aside>
+          <div class="card mb-4">
+            <div class="card-header bg-primary text-white">Search</div>
+            <div class="card-body">
+              <input type="text" class="form-control" placeholder="Search blogs...">
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header bg-primary text-white">Recent Posts</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><a href="#">How to Prepare Your Pet for Surgery</a></li>
+              <li class="list-group-item"><a href="#">5 Signs Your Dog Needs a Vet</a></li>
+              <li class="list-group-item"><a href="#">Best Vaccines for Kittens</a></li>
+            </ul>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header bg-primary text-white">Categories</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><a href="#">Grooming</a></li>
+              <li class="list-group-item"><a href="#">Vaccination</a></li>
+              <li class="list-group-item"><a href="#">Nutrition</a></li>
+              <li class="list-group-item"><a href="#">Surgery</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+    </div> <!-- END ROW -->
+  </div> <!-- END CONTAINER -->
+</section>
 
   </main>
 
   <footer id="footer" class="footer light-background">
-
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">ACE VET CARE </span>
+            <span class="sitename">ACE VET CARE</span>
           </a>
           <div class="footer-contact pt-3">
             <p>Off Kiambu Road.</p>
@@ -237,30 +177,6 @@ container.appendChild(div);
           </div>
         </div>
 
-      
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4></h4>
-          <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4></h4>
-          <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-          </ul>
-        </div>
-
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Department</h4>
           <ul>
@@ -272,8 +188,7 @@ container.appendChild(div);
           </ul>
         </div>
 
-
-  <div class="col-lg-2 col-md-3 footer-links">
+        <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
             <li><a href="#">Home</a></li>
@@ -281,31 +196,21 @@ container.appendChild(div);
             <li><a href="#">Services</a></li>
             <li><a href="#">Terms of service</a></li>
             <li><a href="#">Privacy policy</a></li>
-          </ul> 
+          </ul>
         </div>
-
-
-
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">ACE VET CARE</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="">EmmanueL Nyakundi</a> Distributed by <a href="">DATA PORT INC // EXCEL ENT 
+        Designed by <a href="#">EmmanueL Nyakundi</a> Distributed by <a href="#">DATA PORT INC // EXCEL ENT</a>
       </div>
     </div>
-
   </footer>
 
-  <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Preloader -->
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
@@ -319,8 +224,28 @@ container.appendChild(div);
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <script>
+    const postId = 1;
+    fetch(`load-comments.php?post_id=${postId}`)
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('comment-section');
+        if (data.length === 0) {
+          container.innerHTML = '<p>No comments yet. Be the first!</p>';
+        } else {
+          data.forEach(comment => {
+            const div = document.createElement('div');
+            div.classList.add('border', 'p-3', 'rounded', 'mb-3');
+            div.innerHTML = `
+              <strong>${comment.name}</strong>
+              <p class="mb-1">${comment.comment}</p>
+              <small class="text-muted">Posted on ${comment.created_at}</small>
+            `;
+            container.appendChild(div);
+          });
+        }
+      });
+  </script>
 </body>
 
 </html>
-
-
