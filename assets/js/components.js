@@ -172,7 +172,21 @@ function loadLocalFallback(elementId) {
         Designed by <a href="https://acevetcare.co.ke">Emmanuel Nyakundi</a> | Distributed by <a href="#">DATA PORT INC // EXCEL ENT</a>
       </div>
     </div>
-</footer>`;
+</footer>
+<div id="mobile-action-bar">
+  <a href="tel:+254703824551" class="mobile-action-btn btn-call" aria-label="Call Doctor">
+    <i class="bi bi-telephone-fill"></i>
+    <span>Call</span>
+  </a>
+  <a href="https://wa.me/254703824551?text=Hello%20Ace%20Vet%20Care,%20I%20would%20like%20to%20inquire%20about%20veterinary%20services." target="_blank" class="mobile-action-btn btn-wa" aria-label="WhatsApp Doctor">
+    <i class="bi bi-whatsapp"></i>
+    <span>WhatsApp</span>
+  </a>
+  <a href="index.html#appointment" class="mobile-action-btn btn-book" aria-label="Book Appointment">
+    <i class="bi bi-calendar-check-fill"></i>
+    <span>Book Visit</span>
+  </a>
+</div>`;
         document.getElementById(elementId).innerHTML = footerHTML;
     }
 }
