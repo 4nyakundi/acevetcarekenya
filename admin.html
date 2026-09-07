@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Admin Portal - ACE VET CARE Kenya</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1977cc;
+      --primary-dark: #0f5699;
+      --secondary: #0f172a;
+      --accent: #25D366;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #334155;
+      --text-muted: #64748b;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Auth Gate Overlay */
+    #auth-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .auth-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 40px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Dashboard Layout */
+    .admin-navbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+    }
+
+    .nav-tabs .nav-link {
+      color: var(--text-muted);
+      font-weight: 500;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-tabs .nav-link:hover {
+      color: var(--primary);
+      background: #f1f5f9;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: #ffffff !important;
+      background: var(--primary) !important;
+      font-weight: 600;
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .kpi-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .card-box {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      margin-bottom: 30px;
+    }
+
+    .table thead th {
+      background-color: #f8fafc;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+    }
+
+    .table tbody td {
+      padding: 16px;
+      vertical-align: middle;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .badge-pending {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .badge-confirmed {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .badge-completed {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .badge-cancelled {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* Invoice Printable Sheet */
+    #invoice-sheet {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #invoice-sheet, #invoice-sheet * {
+        visibility: visible;
+      }
+      #invoice-sheet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-navbar {
+        padding: 12px 16px;
+      }
+      .card-box {
+        padding: 18px;
+        border-radius: 16px;
+      }
+      .nav-tabs .nav-link {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+      #invoice-sheet {
+        padding: 20px 15px;
+      }
+      .auth-card {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 1. AUTHENTICATION GATE OVERLAY -->
+  <div id="auth-overlay">
+    <div class="auth-card text-center">
+      <img src="assets/assets/ACE VET CARE.png" alt="ACE VET CARE" width="80" class="mb-3">
+      <h4 class="fw-bold text-dark mb-1">Clinic Portal Login</h4>
+      <p class="text-muted small mb-4">ACE VET CARE Management System</p>
+
+      <form id="admin-login-form" onsubmit="handleAdminLogin(event)">
+        <div class="mb-3 text-start">
+          <label class="form-label small fw-semibold text-muted">Username</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-muted"></i></span>
+            <input type="text" id="admin-username" class="form-control border-start-0" placeholder="e.g. acevet@admin" required>
+          </div>
+        </div>
+
+        <div class="mb-4 text-start">
+          <label class="form-label small fw-semibold text-muted">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
+            <input type="password" id="admin-password" class="form-control border-start-0" placeholder="Enter password" required>
+          </div>
+        </div>
+
+        <div id="login-error" class="alert alert-danger py-2 small d-none mb-3">Invalid credentials. Please try again.</div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3 shadow-sm">
+          Sign In to Portal <i class="bi bi-arrow-right ms-1"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. MAIN DASHBOARD CONTENT -->
+  <div id="dashboard-content" class="d-none">
+
+    <!-- Top Admin Header -->
+    <header class="admin-navbar sticky-top">
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+          <img src="assets/assets/ACE VET CARE.png" alt="Logo" width="45">
+          <div>
+            <h5 class="fw-bold text-dark mb-0">ACE VET CARE</h5>
+            <span class="text-muted small">Admin & Clinical Operations Portal</span>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+          <a href="index.html" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <i class="bi bi-box-arrow-up-right me-1"></i> Live Website
+          </a>
+          <button onclick="handleAdminLogout()" class="btn btn-danger btn-sm rounded-pill px-3">
+            <i class="bi bi-box-arrow-right me-1"></i> Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-fluid py-4 px-md-5">
+
+      <!-- Navigation Tabs -->
+      <ul class="nav nav-tabs border-0 mb-4 gap-2" id="adminTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments" type="button" role="tab">
+            <i class="bi bi-calendar-check-fill"></i> Appointments (<span id="apt-count-badge">0</span>)
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar-view" type="button" role="tab" onclick="renderAdminCalendar()">
+            <i class="bi bi-calendar-range-fill"></i> Calendar & Date Blocking
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="billing-tab" data-bs-toggle="tab" data-bs-target="#billing" type="button" role="tab">
+            <i class="bi bi-receipt"></i> Invoice & Billing
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="blog-tab" data-bs-toggle="tab" data-bs-target="#blog-manager" type="button" role="tab">
+            <i class="bi bi-newspaper"></i> Blog Manager
+          </button>
+        </li>
+      </ul>
+
+      <!-- TAB CONTENT PANES -->
+      <div class="tab-content" id="adminTabContent">
+
+        <!-- ==============================================
+             TAB 1: APPOINTMENTS MANAGEMENT
+             ============================================== -->
+        <div class="tab-pane fade show active" id="appointments" role="tabpanel">
+
+          <!-- KPI Summary Row -->
+          <div class="row g-4 mb-4">
+            <div class="col-xl-3 col-sm-6">
+              <div class="kpi-card d-flex align-items-center justify-content-between">
+                <div>
+                  <span class="text-muted small fw-semibold d-block">TOTAL BOOKINGS</span>
+                  <h3 class="fw-bold text-dark mb-0" id="stat-total">0</h3>
+                </div>
+                <div class="kpi-icon bg-primary bg-opacity-10 text-primary">
+                  <i class="bi bi-calendar2-week"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+              <div class="kpi-card d-flex align-items-center justify-content-between">
+                <div>
+                  <span class="text-muted small fw-semibold d-block">PENDING APPROVAL</span>
+                  <h3 class="fw-bold text-warning mb-0" id="stat-pending">0</h3>
+                </div>
+                <div class="kpi-icon bg-warning bg-opacity-10 text-warning">
+                  <i class="bi bi-hourglass-split"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+              <div class="kpi-card d-flex align-items-center justify-content-between">
+                <div>
+                  <span class="text-muted small fw-semibold d-block">CONFIRMED (2-HR SLOTS)</span>
+                  <h3 class="fw-bold text-success mb-0" id="stat-confirmed">0</h3>
+                </div>
+                <div class="kpi-icon bg-success bg-opacity-10 text-success">
+                  <i class="bi bi-check-circle"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+              <div class="kpi-card d-flex align-items-center justify-content-between">
+                <div>
+                  <span class="text-muted small fw-semibold d-block">BLOCKED DATES</span>
+                  <h3 class="fw-bold text-danger mb-0" id="stat-blocked">0</h3>
+                </div>
+                <div class="kpi-icon bg-danger bg-opacity-10 text-danger">
+                  <i class="bi bi-slash-circle"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appointments List Table -->
+          <div class="card-box">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+              <div>
+                <h5 class="fw-bold text-dark mb-1">Patient Appointments</h5>
+                <p class="text-muted small mb-0">Scheduled 2-hour clinical slots & patient requests</p>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <select id="filter-status" class="form-select form-select-sm" style="width: auto;" onchange="renderAppointmentsTable()">
+                  <option value="ALL">All Statuses</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Confirmed">Confirmed</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+                <input type="text" id="search-apt" class="form-control form-control-sm" placeholder="Search client/phone..." style="width: 200px;" oninput="renderAppointmentsTable()">
+                <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table align-middle table-hover">
+                <thead>
+                  <tr>
+                    <th>Ref ID</th>
+                    <th>Client & Contact</th>
+                    <th>Service & Doctor</th>
+                    <th>Date & 2-Hr Slot</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="appointments-tbody">
+                  <!-- Injected by admin-dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==============================================
+             TAB 2: CALENDAR & DATE BLOCKING
+             ============================================== -->
+        <div class="tab-pane fade" id="calendar-view" role="tabpanel">
+          <div class="row g-4">
+            
+            <!-- Calendar Grid Card -->
+            <div class="col-lg-8">
+              <div class="card-box">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div>
+                    <h5 class="fw-bold text-dark mb-1" id="cal-month-title">Monthly Calendar</h5>
+                    <p class="text-muted small mb-0">Click any date to view scheduled appointments or block slots</p>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary btn-sm" onclick="changeMonth(-1)"><i class="bi bi-chevron-left"></i> Prev</button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="changeMonth(1)">Next <i class="bi bi-chevron-right"></i></button>
+                  </div>
+                </div>
+
+                <div id="calendar-grid" class="table-responsive">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Date Blocking Panel -->
+            <div class="col-lg-4">
+              <div class="card-box">
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-lock-fill text-danger me-2"></i>Block a Date / Time</h5>
+                <p class="text-muted small mb-3">Prevent client bookings for surgery, holidays, or off-duty hours.</p>
+
+                <form id="block-date-form" onsubmit="handleBlockDate(event)">
+                  <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">Select Date</label>
+                    <input type="date" id="block-date-input" class="form-control" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">Session Duration</label>
+                    <select id="block-slot-select" class="form-select">
+                      <option value="Entire Day">Entire Day (All Slots)</option>
+                      <option value="08:00 AM - 10:00 AM">08:00 AM - 10:00 AM (Morning 1)</option>
+                      <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM (Morning 2)</option>
+                      <option value="12:00 PM - 02:00 PM">12:00 PM - 02:00 PM (Midday)</option>
+                      <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM (Afternoon)</option>
+                      <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM (Evening)</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label small fw-semibold text-muted">Reason / Notes</label>
+                    <input type="text" id="block-reason-input" class="form-control" placeholder="e.g. Dr. Njimia Surgery Schedule / Holiday" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-danger w-100 py-2 fw-semibold">
+                    <i class="bi bi-slash-circle me-1"></i> Confirm Block
+                  </button>
+                </form>
+
+                <hr class="my-4">
+
+                <h6 class="fw-bold text-dark mb-3">Currently Blocked Dates (<span id="blocked-count">0</span>)</h6>
+                <div id="blocked-dates-list" class="d-flex flex-column gap-2" style="max-height: 250px; overflow-y: auto;">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==============================================
+             TAB 3: INVOICE & BILLING SYSTEM
+             ============================================== -->
+        <div class="tab-pane fade" id="billing" role="tabpanel">
+          <div class="row g-4">
+            
+            <!-- Invoice Form Controls -->
+            <div class="col-lg-4 no-print">
+              <div class="card-box">
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-file-earmark-text-fill text-primary me-2"></i>Invoice Builder</h5>
+                <p class="text-muted small mb-3">Create official branded veterinary invoices</p>
+
+                <div class="mb-3">
+                  <label class="form-label small fw-semibold text-muted">Load Client from Bookings</label>
+                  <select id="invoice-client-select" class="form-select" onchange="autoFillInvoiceClient(this.value)">
+                    <option value="">-- Choose Client --</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label small fw-semibold text-muted">Client Full Name</label>
+                  <input type="text" id="inv-client-name" class="form-control" placeholder="e.g. John Kamau" oninput="updateInvoicePreview()">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label small fw-semibold text-muted">Client Phone / WhatsApp</label>
+                  <input type="text" id="inv-client-phone" class="form-control" placeholder="e.g. +254700123456" oninput="updateInvoicePreview()">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label small fw-semibold text-muted">Pet Name & Breed</label>
+                  <input type="text" id="inv-pet-name" class="form-control" placeholder="e.g. Max (German Shepherd)" oninput="updateInvoicePreview()">
+                </div>
+
+                <hr>
+
+                <h6 class="fw-bold text-dark mb-2">Services & Items</h6>
+                <div id="invoice-items-builder" class="d-flex flex-column gap-2 mb-3">
+                  <!-- Item Rows Injected -->
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-3" onclick="addInvoiceItemRow()">
+                  <i class="bi bi-plus-circle me-1"></i> Add Service Item
+                </button>
+
+                <div class="d-flex flex-column gap-2">
+                  <button class="btn btn-success w-100 py-2 fw-semibold" onclick="sendInvoiceWhatsApp()">
+                    <i class="fab fa-whatsapp me-1"></i> Send Invoice on WhatsApp
+                  </button>
+                  <button class="btn btn-primary w-100 py-2 fw-semibold" onclick="window.print()">
+                    <i class="bi bi-printer me-1"></i> Print / Save as PDF
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Invoice Live Preview Sheet -->
+            <div class="col-lg-8">
+              <div id="invoice-sheet" class="shadow-sm">
+                
+                <!-- Invoice Header -->
+                <div class="d-flex justify-content-between align-items-start border-bottom pb-4 mb-4">
+                  <div class="d-flex align-items-center gap-3">
+                    <img src="assets/assets/ACE VET CARE.png" alt="Logo" width="70">
+                    <div>
+                      <h4 class="fw-bold text-dark mb-0">ACE VET CARE</h4>
+                      <p class="text-muted small mb-0">Muthaiga Square, Off Kiambu Road, Nairobi</p>
+                      <p class="text-muted small mb-0">Phone: +254 703 824 551 | Email: doc@acevetcare.co.ke</p>
+                    </div>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-primary text-white px-3 py-2 fs-6 fw-bold">INVOICE</span>
+                    <h6 class="fw-bold text-dark mt-2 mb-1" id="inv-number-display">ACE-INV-2026-001</h6>
+                    <span class="text-muted small" id="inv-date-display">Date: 2026-09-07</span>
+                  </div>
+                </div>
+
+                <!-- Bill To -->
+                <div class="row mb-4">
+                  <div class="col-sm-6">
+                    <span class="text-muted small fw-bold text-uppercase d-block mb-1">INVOICE BILLED TO:</span>
+                    <h6 class="fw-bold text-dark mb-1" id="inv-client-display">Client Name</h6>
+                    <p class="text-muted small mb-0" id="inv-phone-display">Phone: -</p>
+                    <p class="text-muted small mb-0" id="inv-pet-display">Pet: -</p>
+                  </div>
+                  <div class="col-sm-6 text-sm-end mt-3 mt-sm-0">
+                    <span class="text-muted small fw-bold text-uppercase d-block mb-1">PAYMENT DETAILS:</span>
+                    <p class="text-dark small fw-semibold mb-0">M-Pesa Buy Goods / Till: <strong>247247</strong></p>
+                    <p class="text-dark small fw-semibold mb-0">Account / Phone: <strong>0703824551</strong></p>
+                    <p class="text-success small fw-bold mb-0">Due Upon Service Receipt</p>
+                  </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="table-responsive mb-4">
+                  <table class="table table-bordered align-middle">
+                    <thead class="bg-light">
+                      <tr>
+                        <th>Service / Medical Description</th>
+                        <th class="text-center" style="width: 80px;">Qty</th>
+                        <th class="text-end" style="width: 140px;">Unit Price (KES)</th>
+                        <th class="text-end" style="width: 140px;">Total (KES)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="invoice-preview-tbody">
+                      <!-- Injected Items -->
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Summary Totals -->
+                <div class="row justify-content-end mb-4">
+                  <div class="col-md-5">
+                    <div class="d-flex justify-content-between py-2 border-bottom">
+                      <span class="text-muted small">Subtotal:</span>
+                      <span class="fw-bold" id="inv-subtotal-display">KES 0</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-2 border-bottom">
+                      <span class="text-muted small">Discounts:</span>
+                      <span class="text-success fw-bold">- KES 0</span>
+                    </div>
+                    <div class="d-flex justify-content-between py-2 fs-5">
+                      <span class="fw-bold text-dark">Total Due:</span>
+                      <span class="fw-bold text-primary" id="inv-total-display">KES 0</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Footer Signoff -->
+                <div class="border-top pt-3 text-center text-muted small">
+                  <p class="mb-1 fw-semibold text-dark">Thank you for choosing ACE VET CARE Kenya for your pet's healthcare!</p>
+                  <p class="mb-0">For medical inquiries or emergency follow-ups, reach us at +254 703 824 551</p>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==============================================
+             TAB 4: BLOG MANAGER
+             ============================================== -->
+        <div class="tab-pane fade" id="blog-manager" role="tabpanel">
+          <div class="row g-4">
+            
+            <!-- Create Article Form -->
+            <div class="col-lg-5">
+              <div class="card-box">
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-pencil-square text-primary me-2"></i>Publish Blog Article</h5>
+                <p class="text-muted small mb-4">Articles will display live on the public blog page</p>
+
+                <form id="blog-publish-form" onsubmit="handlePublishArticle(event)">
+                  <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">Article Title</label>
+                    <input type="text" id="blog-title-input" class="form-control" placeholder="e.g. 5 Essential Tips for Dog Vaccinations in Nairobi" required>
+                  </div>
+
+                  <div class="row g-2 mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label small fw-semibold text-muted">Category</label>
+                      <select id="blog-category-input" class="form-select" required>
+                        <option value="Dog Care">Dog Care</option>
+                        <option value="Cat Health">Cat Health</option>
+                        <option value="Grooming & Hygiene">Grooming & Hygiene</option>
+                        <option value="Surgery & Recovery">Surgery & Recovery</option>
+                        <option value="Emergency Vet Tips">Emergency Vet Tips</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label small fw-semibold text-muted">Author</label>
+                      <input type="text" id="blog-author-input" class="form-control" value="Dr. Njimia (Lead Vet)" required>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">Cover Photo Image</label>
+                    <select id="blog-image-select" class="form-select" onchange="document.getElementById('blog-image-input').value = this.value">
+                      <option value="assets/assets/hero-dog.jpg">Primary Dog Photo (hero-dog.jpg)</option>
+                      <option value="assets/assets/gal1.JPG">Pet Clinic Care (gal1.JPG)</option>
+                      <option value="assets/assets/gal3.JPG">Pet Grooming Session (gal3.JPG)</option>
+                      <option value="assets/assets/gal4.JPG">Veterinary Treatment (gal4.JPG)</option>
+                      <option value="assets/assets/gal5.jpg">Surgical Operations (gal5.jpg)</option>
+                      <option value="assets/assets/gal6.jpg">Boarding Care (gal6.jpg)</option>
+                    </select>
+                    <input type="text" id="blog-image-input" class="form-control mt-2" value="assets/assets/hero-dog.jpg" placeholder="Or custom Image URL">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">Short Excerpt / Summary</label>
+                    <textarea id="blog-excerpt-input" class="form-control" rows="2" placeholder="Brief summary of the article..." required></textarea>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label small fw-semibold text-muted">Full Article Body Content</label>
+                    <textarea id="blog-content-input" class="form-control" rows="6" placeholder="Write full article paragraphs here..." required></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                    <i class="bi bi-cloud-arrow-up-fill me-1"></i> Publish Live Article
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Published Articles List -->
+            <div class="col-lg-7">
+              <div class="card-box">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div>
+                    <h5 class="fw-bold text-dark mb-1">Published Articles</h5>
+                    <p class="text-muted small mb-0">Active stories connected to blog-details.html</p>
+                  </div>
+                  <a href="blog-details.html" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
+                    <i class="bi bi-eye me-1"></i> View Blog Page
+                  </a>
+                </div>
+
+                <div id="articles-list-container" class="d-flex flex-column gap-3">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+
+  <!-- Admin Portal Script -->
+  <script src="assets/js/admin-dashboard.js"></script>
+
+</body>
+
+</html>

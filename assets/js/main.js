@@ -8,48 +8,18 @@
   function toggleScrolled() {
     const selectBody = document.querySelector('body');
     const selectHeader = document.querySelector('#header');
+    if (!selectHeader) return;
     if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
-    window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
+    window.scrollY > 30 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
 
   document.addEventListener('scroll', toggleScrolled);
   window.addEventListener('load', toggleScrolled);
 
   /**
-   * Mobile nav toggle
+   * Mobile navigation logic is handled dynamically inside components.js
+   * after the header placeholder loading completes.
    */
-  const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-
-  function mobileNavToogle() {
-    document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
-  }
-  mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
-
-  /**
-   * Hide mobile nav on same-page/hash links
-   */
-  document.querySelectorAll('#navmenu a').forEach(navmenu => {
-    navmenu.addEventListener('click', () => {
-      if (document.querySelector('.mobile-nav-active')) {
-        mobileNavToogle();
-      }
-    });
-
-  });
-
-  /**
-   * Toggle mobile nav dropdowns
-   */
-  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
-      e.preventDefault();
-      this.parentNode.classList.toggle('active');
-      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
-      e.stopImmediatePropagation();
-    });
-  });
 
   /**
    * Preloader
@@ -174,5 +144,23 @@
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
+
+  /**
+   * Capabilities (Zubox) Card Interactive Switcher
+   */
+  window.switchCapCard = function(num) {
+    for (let i = 1; i <= 3; i++) {
+      const card = document.getElementById('cap-card-' + i);
+      if (!card) continue;
+      const cutout = card.querySelector('.zubox-card-cutout');
+      if (i === num) {
+        card.classList.add('active');
+        if (cutout) cutout.classList.remove('d-none');
+      } else {
+        card.classList.remove('active');
+        if (cutout) cutout.classList.add('d-none');
+      }
+    }
+  };
 
 })();

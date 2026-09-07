@@ -1,13 +1,12 @@
-<!-- blog-single.html -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>ACE VET CARE || BLOG</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <title>Importance of Regular Vaccinations || ACE VET CARE BLOG</title>
+  <meta name="description" content="Learn why regular vaccinations are critical for protecting your pets from life-threatening diseases.">
+  <meta name="keywords" content="pet vaccination, dog vaccines, cat vaccines, rabies vaccine, Nairobi vet">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -28,68 +27,13 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
- 
-  ======================================================== -->
 </head>
 
 <body class="index-page">
 
-  <header id="header" class="header sticky-top">
+  <div id="header-placeholder"></div>
 
-    <div class="topbar d-flex align-items-center">
-      <div class="container d-flex justify-content-center justify-content-md-between">
-        <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:acevetcare@gmail.com">acevetcare@gmail.com</a></i>
-          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+254703824551</span></i>
-        </div>
-        <div class="social-links d-none d-md-flex align-items-center">
-          <a href="https://pin.it/4WcSck2Lt" class="pinterest"><i class="bi bi-pinterest"></i></a>
-          <a href="https://www.facebook.com/acevetkenya" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="https://www.instagram.com/acevetkenya" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="http://tiktok.com/@acevetkenya" class="tiktok"><i class="bi bi-tiktok"></i></a>
-          <a href="https://wa.me/254703824551" class="whatsapp"><i class="bi bi-whatsapp"></i></a>
-        </div>
-      </div>
-    </div><!-- End Top Bar -->
-
-    <div class="branding d-flex align-items-center">
-
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center me-auto">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-           <img src="assets/assets/ACE VET CARE.png" alt="" data-aos="fade-in">
-          <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1 class="sitename">ACE VET CARE</h1>
-        </a>
-
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="index.html" class="active">Home<br></a></li>
-            <li><a href="index.html">About Us</a></li>
-            <li><a href="index.html">Services Overview</a></li>
-            <li><a href="index.html">Departments</a></li>
-            <li><a href="index.html">Doctors</a></li>
-            <li><a href="blog-details.html.html">Blog</a></li>
-            <li><a href="index.html">Contact</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-
-        <a class="cta-btn d-none d-sm-block" href="#appointment">Make an Appointment</a>
-
-      </div>
-
-    </div>
-
-  </header>
-
-
-
-<body>
   <main class="main">
-    <!-- Page Title -->
     <div class="page-title py-5 text-center bg-light">
       <div class="container">
         <h1 id="blog-title">💉 Importance of Regular Vaccinations for Your Pet</h1>
@@ -97,115 +41,102 @@
       </div>
     </div>
 
-    <!-- Blog Content -->
     <section class="section blog-single">
       <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
+
+          <!-- Blog Main Content -->
           <div class="col-lg-8">
             <img id="blog-image" src="assets/assets/gal5.jpg" alt="Blog Image" class="img-fluid mb-4 rounded">
-
             <div id="blog-content">
-                <h2></h2>
-               
-                <p>
-                Regular vaccinations are essential in protecting your pet from life-threatening diseases like rabies, parvovirus, distemper, and feline leukemia. These vaccines not only safeguard your pet’s health but also help prevent the spread of contagious illnesses to other animals and even humans.
-
-                At ACE VET CARE, we follow a structured vaccination schedule tailored to your pet’s age, species, and lifestyle. Keeping up with vaccinations ensures a longer, healthier life for your pet and peace of mind for you.</p>
+              <p>Regular vaccinations are essential in protecting your pet from life-threatening diseases like rabies, parvovirus, distemper, and feline leukemia. These vaccines not only safeguard your pet’s health but also help prevent the spread of contagious illnesses to other animals and even humans.</p>
+              <p>At ACE VET CARE, we follow a structured vaccination schedule tailored to your pet’s age, species, and lifestyle. Keeping up with vaccinations ensures a longer, healthier life for your pet and peace of mind for you.</p>
             </div>
 
             <hr />
+            <div class="comments mt-5">
+              <h4 class="mb-4">Leave a Comment</h4>
+              <form action="comment/save-comment.php" method="POST" class="contact-form">
+                <input type="hidden" name="post_id" value="2">
+                <div class="row gy-3">
+                  <div class="col-md-6">
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                  </div>
+                  <div class="col-12">
+                    <textarea name="comment" rows="4" class="form-control" placeholder="Your Comment" required></textarea>
+                  </div>
+                  <div class="col-12 text-start">
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                  </div>
+                </div>
+                <div class="form-status mt-3">
+                  <div class="loading d-none">Sending...</div>
+                  <div class="error-message d-none"></div>
+                  <div class="sent-message d-none">Your comment has been posted successfully!</div>
+                </div>
+              </form>
+              <div class="comment-list mt-4" id="comment-section">
+                <!-- Comments will load here dynamically -->
+              </div>
+            </div>
+          </div>
 
-            
-            <!-- Comments Section -->
-<div class="comments">
-<h4>Leave a Comment</h4>
-<form action="save-comment.php" method="POST" class="php-email-form">
-<input type="hidden" name="post_id" value="1"> <!-- change accordingly -->
-<div class="row">
-<div class="col-md-6 mb-3">
-<input type="text" name="name" class="form-control" placeholder="Your Name" required>
-</div>
-<div class="col-md-6 mb-3">
-<input type="email" name="email" class="form-control" placeholder="Your Email" required>
-</div>
-</div>
-<div class="mb-3">
-<textarea name="comment" rows="5" class="form-control" placeholder="Your Comment" required></textarea>
-</div>
-<div class="text-start">
-<button type="submit" class="btn btn-primary rounded-pill px-4">Submit</button>
-</div>
-</form>
-
-
-<div class="comment-list mt-4" id="comment-section">
-<!-- Comments will load here dynamically -->
-</div>
-
-
-</div>
-
-
-</div>
-</div>
-</div>
-</section>
-
-
-</main>
-
-
-<script>
-// Load comments from PHP backend
-const postId = 1;
-fetch(`load-comments.php?post_id=${postId}`)
-.then(response => response.json())
-.then(data => {
-const container = document.getElementById('comment-section');
-if (data.length === 0) {
-container.innerHTML = '<p>No comments yet. Be the first!</p>';
-} else {
-data.forEach(comment => {
-const div = document.createElement('div');
-div.classList.add('border', 'p-3', 'rounded', 'mb-3');
-div.innerHTML = `
-<strong>${comment.name}</strong>
-<p class="mb-1">${comment.comment}</p>
-<small class="text-muted">Posted on ${comment.created_at}</small>
-`;
-container.appendChild(div);
-});
-}
-});
-</script>
-
-          <!-- Sidebar Section -->
+          <!-- Sidebar -->
           <div class="col-lg-4">
             <aside>
               <div class="card mb-4">
-                <div class="card-header bg-primary text-white">Search</div>
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0">Search</h5>
+                </div>
                 <div class="card-body">
-                  <input type="text" class="form-control" placeholder="Search blogs...">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search blogs...">
+                    <button class="btn btn-outline-primary" type="button">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
 
               <div class="card mb-4">
-                <div class="card-header bg-primary text-white">Recent Posts</div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><a href="#">How to Prepare Your Pet for Surgery</a></li>
-                  <li class="list-group-item"><a href="#">5 Signs Your Dog Needs a Vet</a></li>
-                  <li class="list-group-item"><a href="#">Best Vaccines for Kittens</a></li>
-                </ul>
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0">Recent Posts</h5>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="blog-single.html" class="text-decoration-none">🐾 5 Signs Your Pet Needs a Vet</a></li>
+                    <li class="list-group-item"><a href="blog-single2.html" class="text-decoration-none">💉 Importance of Regular Vaccinations</a></li>
+                    <li class="list-group-item"><a href="blog-single3.html" class="text-decoration-none">🧼 Essential Grooming Tips for Your Pet</a></li>
+                  </ul>
+                </div>
               </div>
 
               <div class="card mb-4">
-                <div class="card-header bg-primary text-white">Categories</div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><a href="#">Grooming</a></li>
-                  <li class="list-group-item"><a href="#">Vaccination</a></li>
-                  <li class="list-group-item"><a href="#">Nutrition</a></li>
-                  <li class="list-group-item"><a href="#">Surgery</a></li>
-                </ul>
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0">Categories</h5>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">🧼 Grooming</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">💉 Vaccination</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">🍖 Nutrition</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">🔪 Surgery</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header bg-primary text-white">
+                  <h5 class="mb-0">Quick Contact</h5>
+                </div>
+                <div class="card-body text-center">
+                  <p class="mb-2"><i class="fas fa-phone text-primary me-2"></i>+254 703 824 551</p>
+                  <p class="mb-2"><i class="fas fa-envelope text-primary me-2"></i>acevetcare@gmail.com</p>
+                  <a href="index.html#appointment" class="btn btn-primary btn-sm">Book Appointment</a>
+                </div>
               </div>
             </aside>
           </div>
@@ -213,99 +144,11 @@ container.appendChild(div);
         </div>
       </div>
     </section>
-
   </main>
 
-  <footer id="footer" class="footer light-background">
+  <div id="footer-placeholder"></div>
 
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">ACE VET CARE </span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>Off Kiambu Road.</p>
-            <p>RRVQ+QG Kiambu</p>
-            <p>Nairobi , Muthaiga Square</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+254 703824551</span></p>
-            <p><strong>Email:</strong> <span>acevetcare@gmail.com // doc@acevetcare.co.ke</span></p>
-          </div>
-          <div class="social-links d-flex mt-4">
-            <a href="https://pin.it/4WcSck2Lt"><i class="bi bi-pinterest"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href="https://www.instagram.com/acevetkenya"><i class="bi bi-instagram"></i></a>
-            <a href="http://tiktok.com/@acevetkenya"><i class="bi bi-tiktok"></i></a>
-            <a href="https://wa.me/254703824551"><i class="bi bi-whatsapp"></i></a>
-          </div>
-        </div>
-
-      
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4></h4>
-          <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4></h4>
-          <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Department</h4>
-          <ul>
-            <li><a href="index.html">Grooming</a></li>
-            <li><a href="index.html">Surgery</a></li>
-            <li><a href="index.html">Boarding</a></li>
-            <li><a href="index.html">Treatment</a></li>
-            <li><a href="index.html">Vaccination</a></li>
-          </ul>
-        </div>
-
-
-  <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">About us</a></li>
-            <li><a href="index.html">Services</a></li>
-            <li><a href="index.html">Terms of service</a></li>
-            <li><a href="index.html">Privacy policy</a></li>
-          </ul> 
-        </div>
-
-
-
-      </div>
-    </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">ACE VET CARE</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        
-        Designed by <a href="">EmmanueL Nyakundi</a> Distributed by <a href="">DATA PORT INC // EXCEL ENT 
-      </div>
-    </div>
-
-  </footer>
-
-  <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
@@ -316,11 +159,53 @@ container.appendChild(div);
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-  <!-- Main JS File -->
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+
+  <!-- Custom Scripts -->
+  <script src="assets/js/components.js"></script>
   <script src="assets/js/main.js"></script>
 
+  <script>
+    loadComponent('header-placeholder', 'assets/components/header.html');
+    loadComponent('footer-placeholder', 'assets/components/footer.html');
+
+    const postId = 2;
+    if (db) {
+      db.collection('comments')
+        .where('post_id', '==', postId)
+        .orderBy('created_at', 'desc')
+        .get()
+        .then(querySnapshot => {
+          const container = document.getElementById('comment-section');
+          container.innerHTML = '';
+          if (querySnapshot.empty) {
+            container.innerHTML = '<p>No comments yet. Be the first!</p>';
+          } else {
+            querySnapshot.forEach(doc => {
+              const comment = doc.data();
+              const date = comment.created_at ? new Date(comment.created_at.seconds * 1000).toLocaleDateString() : 'Just now';
+              const div = document.createElement('div');
+              div.classList.add('border', 'p-3', 'rounded', 'mb-3');
+              div.innerHTML = `
+                <strong>${comment.name}</strong>
+                <p class="mb-1">${comment.comment}</p>
+                <small class="text-muted">Posted on ${date}</small>
+              `;
+              container.appendChild(div);
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Error loading comments:", error);
+          document.getElementById('comment-section').innerHTML = '<p class="text-danger">Failed to load comments.</p>';
+        });
+    } else {
+      document.getElementById('comment-section').innerHTML = '<p class="text-muted">Database offline. Could not load comments.</p>';
+    }
+  </script>
 </body>
 
 </html>
-
-
