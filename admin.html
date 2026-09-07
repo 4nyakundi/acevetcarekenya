@@ -685,6 +685,47 @@
             </div>
 
           </div>
+
+          <!-- Dedicated Client Bookings & Schedule Timeline Table (Below Calendar) -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card-box">
+                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+                  <div>
+                    <h5 class="fw-bold text-dark mb-1"><i class="bi bi-calendar3-range text-primary me-2"></i>Client Booking Schedule & Appointment Timeline</h5>
+                    <p class="text-muted small mb-0">Chronological list of all booked clients with their scheduled dates, 2-hour clinical slots, and statuses</p>
+                  </div>
+                  <div class="d-flex flex-wrap gap-2">
+                    <input type="text" id="search-cal-schedule" class="form-control form-control-sm" placeholder="Filter client/date/phone..." style="width: 220px;" oninput="renderCalendarScheduleTable()">
+                    <button onclick="exportAppointmentsCSV()" class="btn btn-outline-success btn-sm" title="Export Schedule CSV">
+                      <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export CSV
+                    </button>
+                    <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm" title="Refresh Schedule"><i class="bi bi-arrow-clockwise"></i></button>
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table align-middle table-hover">
+                    <thead class="bg-light">
+                      <tr>
+                        <th>Booking Date & 2-Hr Slot</th>
+                        <th>Client Name</th>
+                        <th>Phone / WhatsApp</th>
+                        <th>Service / Department</th>
+                        <th>Assigned Doctor</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cal-schedule-tbody">
+                      <!-- Injected dynamically by admin-dashboard.js -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- ==============================================
@@ -1018,6 +1059,142 @@
           </div>
         </form>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       EDIT PATIENT MEDICAL RECORD MODAL
+       ============================================== -->
+  <div class="modal fade" id="editPatientModal" tabindex="-1" aria-labelledby="editPatientModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header border-bottom-0 pb-0">
+          <div class="d-flex align-items-center gap-2">
+            <div class="kpi-icon bg-primary bg-opacity-10 text-primary" style="width: 40px; height: 40px;">
+              <i class="bi bi-pencil-square"></i>
+            </div>
+            <div>
+              <h5 class="modal-title fw-bold text-dark" id="editPatientModalLabel">Edit Patient Medical Record & EHR</h5>
+              <p class="text-muted small mb-0">Update clinical history, prescriptions, and next due vaccination</p>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <form id="edit-patient-form" onsubmit="handleEditPatient(event)">
+          <input type="hidden" id="edit-patient-id">
+          <div class="modal-body py-4">
+            
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-tag-fill me-1"></i> 1. Pet Identification</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Pet Name *</label>
+                <input type="text" id="edit-pet-name" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Species</label>
+                <select id="edit-pet-species" class="form-select">
+                  <option value="Dog">Dog (Canine)</option>
+                  <option value="Cat">Cat (Feline)</option>
+                  <option value="Bird">Bird (Avian)</option>
+                  <option value="Other">Other Pet</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Breed</label>
+                <input type="text" id="edit-pet-breed" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Age / DOB</label>
+                <input type="text" id="edit-pet-age" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Weight</label>
+                <input type="text" id="edit-pet-weight" class="form-control">
+              </div>
+            </div>
+
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-person-fill me-1"></i> 2. Owner Contact Details</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Owner Full Name *</label>
+                <input type="text" id="edit-owner-name" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">WhatsApp Phone Number *</label>
+                <input type="text" id="edit-owner-phone" class="form-control" required>
+              </div>
+            </div>
+
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-clipboard2-pulse-fill me-1"></i> 3. Clinical Findings & Prescriptions</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Clinical Diagnosis / Symptoms</label>
+                <textarea id="edit-diagnosis" class="form-control" rows="2"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Administered Treatment / Rx</label>
+                <textarea id="edit-treatment" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-plus me-1"></i> 4. Scheduled Vaccination / Booster & Visits</h6>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Vaccine Name</label>
+                <input type="text" id="edit-vaccine-name" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Next Due Date</label>
+                <input type="date" id="edit-vaccine-due" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Last Visit Date</label>
+                <input type="date" id="edit-last-visit" class="form-control">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer border-top-0 pt-0">
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 fw-semibold">
+              <i class="bi bi-check-circle me-1"></i> Save Changes
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       CALENDAR DATE APPOINTMENTS POPUP MODAL
+       ============================================== -->
+  <div class="modal fade" id="dateAppointmentsModal" tabindex="-1" aria-labelledby="dateAppointmentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header border-bottom-0 pb-0">
+          <div class="d-flex align-items-center gap-2">
+            <div class="kpi-icon bg-primary bg-opacity-10 text-primary" style="width: 40px; height: 40px;">
+              <i class="bi bi-calendar-event"></i>
+            </div>
+            <div>
+              <h5 class="modal-title fw-bold text-dark" id="dateAppointmentsModalLabel">Appointments on Selected Date</h5>
+              <p class="text-muted small mb-0" id="dateAppointmentsModalSub">Scheduled clients and 2-hour clinical slots</p>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body py-4" id="dateAppointmentsModalBody">
+          <!-- Injected dynamically by handleCalendarDateClick -->
+        </div>
+
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>

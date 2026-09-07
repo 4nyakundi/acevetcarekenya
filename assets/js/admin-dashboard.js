@@ -243,6 +243,8 @@ function initializeSampleData() {
 function refreshAppointments() {
     appointmentsList = JSON.parse(localStorage.getItem('acevet_appointments') || '[]');
     renderAppointmentsTable();
+    renderCalendarScheduleTable();
+    renderAdminCalendar();
     updateKPICounters();
     populateInvoiceClientDropdown();
     populateWhatsAppHubClients();
@@ -411,10 +413,13 @@ function renderPatientsTable() {
             </td>
             <td class="text-end">
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-outline-success" title="Send WhatsApp Vaccine Reminder" onclick="sendPatientVaccineReminder('${p.id}')">
-                        <i class="bi bi-whatsapp"></i> Reminder
+                    <button class="btn btn-outline-primary" title="Edit Patient Record" onclick="openEditPatientModal('${p.id}')">
+                        <i class="bi bi-pencil-square"></i> Edit
                     </button>
-                    <button class="btn btn-outline-primary" title="Bill / Create Invoice" onclick="billPatientRecord('${p.id}')">
+                    <button class="btn btn-outline-success" title="Send WhatsApp Vaccine Reminder" onclick="sendPatientVaccineReminder('${p.id}')">
+                        <i class="bi bi-whatsapp"></i>
+                    </button>
+                    <button class="btn btn-outline-info" title="Bill / Create Invoice" onclick="billPatientRecord('${p.id}')">
                         <i class="bi bi-receipt"></i>
                     </button>
                     <button class="btn btn-outline-danger" title="Delete Record" onclick="deletePatient('${p.id}')">
@@ -424,6 +429,57 @@ function renderPatientsTable() {
             </td>
         </tr>`;
     }).join('');
+}
+
+function openEditPatientModal(id) {
+    const patient = patientsList.find(p => p.id === id);
+    if (!patient) return;
+
+    document.getElementById('edit-patient-id').value = patient.id;
+    document.getElementById('edit-pet-name').value = patient.petName || '';
+    document.getElementById('edit-pet-species').value = patient.species || 'Dog';
+    document.getElementById('edit-pet-breed').value = patient.breed || '';
+    document.getElementById('edit-pet-age').value = patient.age || '';
+    document.getElementById('edit-pet-weight').value = patient.weight || '';
+    document.getElementById('edit-owner-name').value = patient.ownerName || '';
+    document.getElementById('edit-owner-phone').value = patient.ownerPhone || '';
+    document.getElementById('edit-diagnosis').value = patient.diagnosis || '';
+    document.getElementById('edit-treatment').value = patient.treatment || '';
+    document.getElementById('edit-vaccine-name').value = patient.nextVaccine || '';
+    document.getElementById('edit-vaccine-due').value = patient.vaccineDueDate || '';
+    document.getElementById('edit-last-visit').value = patient.lastVisit || new Date().toISOString().split('T')[0];
+
+    const modal = new bootstrap.Modal(document.getElementById('editPatientModal'));
+    modal.show();
+}
+
+function handleEditPatient(event) {
+    event.preventDefault();
+    const id = document.getElementById('edit-patient-id').value;
+    const index = patientsList.findIndex(p => p.id === id);
+    if (index === -1) return;
+
+    patientsList[index].petName = document.getElementById('edit-pet-name').value.trim();
+    patientsList[index].species = document.getElementById('edit-pet-species').value;
+    patientsList[index].breed = document.getElementById('edit-pet-breed').value.trim() || 'Mixed Breed';
+    patientsList[index].age = document.getElementById('edit-pet-age').value.trim();
+    patientsList[index].weight = document.getElementById('edit-pet-weight').value.trim();
+    patientsList[index].ownerName = document.getElementById('edit-owner-name').value.trim();
+    patientsList[index].ownerPhone = document.getElementById('edit-owner-phone').value.trim();
+    patientsList[index].diagnosis = document.getElementById('edit-diagnosis').value.trim();
+    patientsList[index].treatment = document.getElementById('edit-treatment').value.trim();
+    patientsList[index].nextVaccine = document.getElementById('edit-vaccine-name').value.trim();
+    patientsList[index].vaccineDueDate = document.getElementById('edit-vaccine-due').value;
+    patientsList[index].lastVisit = document.getElementById('edit-last-visit').value;
+
+    localStorage.setItem('acevet_patients', JSON.stringify(patientsList));
+
+    const modalEl = document.getElementById('editPatientModal');
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if (modal) modal.hide();
+
+    refreshPatients();
+    alert(`Patient record for ${patientsList[index].petName} updated successfully!`);
 }
 
 function handleAddPatient(event) {
@@ -1039,14 +1095,230 @@ function renderAdminCalendar() {
 
     html += '</tbody></table>';
     grid.innerHTML = html;
+    renderCalendarScheduleTable();
 }
 
 function handleCalendarDateClick(dateString) {
-    document.getElementById('block-date-input').value = dateString;
-    const aptsOnDate = appointmentsList.filter(a => a.date === dateString);
-    if (aptsOnDate.length > 0) {
-        alert(`Date: ${dateString}\nScheduled 2-Hour Appointments (${aptsOnDate.length}):\n` + aptsOnDate.map(a => `• ${a.time_slot}: ${a.name} (${a.department})`).join('\n'));
+    if (document.getElementById('block-date-input')) {
+        document.getElementById('block-date-input').value = dateString;
     }
+    
+    const aptsOnDate = appointmentsList.filter(a => a.date === dateString);
+    const isBlocked = blockedDatesList.find(b => b.date === dateString);
+    
+    // Parse Date for friendly header
+    let formattedDate = dateString;
+    try {
+        const parts = dateString.split('-');
+        if (parts.length === 3) {
+            const dateObj = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            formattedDate = dateObj.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+    } catch (e) {
+        formattedDate = dateString;
+    }
+    
+    const titleEl = document.getElementById('dateAppointmentsModalLabel');
+    const subEl = document.getElementById('dateAppointmentsModalSub');
+    const body = document.getElementById('dateAppointmentsModalBody');
+
+    if (titleEl) titleEl.innerHTML = `<i class="bi bi-calendar-event text-primary me-2"></i>Appointments for ${formattedDate}`;
+    if (subEl) subEl.textContent = `${aptsOnDate.length} Client Booking(s) • Date: ${dateString}`;
+    if (!body) return;
+
+    let html = '';
+
+    if (isBlocked) {
+        html += `
+        <div class="alert alert-danger d-flex align-items-center justify-content-between p-3 rounded-3 mb-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-slash-circle-fill fs-5 text-danger"></i>
+                <div>
+                    <strong class="d-block text-danger">This Date is Currently BLOCKED (${escapeHtml(isBlocked.slot)})</strong>
+                    <small class="text-muted">${escapeHtml(isBlocked.reason || 'Clinic Disinfection / Off-duty')}</small>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="unblockDate('${isBlocked.id}'); handleCalendarDateClick('${dateString}');">Unblock Date</button>
+        </div>`;
+    }
+
+    if (aptsOnDate.length === 0) {
+        html += `
+        <div class="text-center py-4">
+            <div class="mb-3 text-muted opacity-50">
+                <i class="bi bi-calendar-x" style="font-size: 3.2rem;"></i>
+            </div>
+            <h6 class="fw-bold text-dark mb-1">No Client Bookings on this Date</h6>
+            <p class="text-muted small mb-3">There are currently no 2-hour clinical appointments scheduled for ${formattedDate}.</p>
+            <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="scrollToBlockDate('${dateString}')" data-bs-dismiss="modal">
+                <i class="bi bi-slash-circle me-1"></i> Block This Date in Schedule
+            </button>
+        </div>`;
+    } else {
+        html += `
+        <div class="table-responsive">
+            <table class="table align-middle table-hover">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="small">2-Hr Time Slot</th>
+                        <th class="small">Client & Contact</th>
+                        <th class="small">Service & Notes</th>
+                        <th class="small">Status</th>
+                        <th class="small text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${aptsOnDate.map(a => {
+                        const phoneDigits = (a.phone || '').replace(/[^0-9]/g, '');
+                        const waMsg = encodeURIComponent(`Hello ${a.name}, this is Dr. Njimia from ACE VET CARE following up on your appointment on ${a.date} (${a.time_slot}) for ${a.department}.`);
+                        
+                        return `
+                        <tr>
+                            <td>
+                                <span class="badge bg-primary bg-opacity-10 text-primary fw-semibold px-2 py-1">
+                                    <i class="bi bi-clock me-1"></i>${escapeHtml(a.time_slot || 'All Day')}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-dark">${escapeHtml(a.name)}</div>
+                                <small class="text-muted"><i class="bi bi-telephone me-1"></i>${escapeHtml(a.phone)}</small>
+                            </td>
+                            <td>
+                                <div class="fw-semibold small text-dark">${escapeHtml(a.department)}</div>
+                                <small class="text-muted text-truncate d-block" style="max-width: 170px;">${escapeHtml(a.message || 'Standard consultation')}</small>
+                            </td>
+                            <td>
+                                <select class="form-select form-select-sm" style="width: auto; font-size: 0.8rem;" onchange="updateAppointmentStatus('${a.id}', this.value); handleCalendarDateClick('${dateString}');">
+                                    <option value="Pending" ${a.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="Confirmed" ${a.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                                    <option value="Completed" ${a.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                    <option value="Cancelled" ${a.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                                </select>
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="https://wa.me/${phoneDigits}?text=${waMsg}" target="_blank" class="btn btn-outline-success" title="WhatsApp Client">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </a>
+                                    <button class="btn btn-outline-primary" title="Create Invoice" onclick="loadClientToInvoice('${a.id}')" data-bs-dismiss="modal">
+                                        <i class="bi bi-receipt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>`;
+                    }).join('')}
+                </tbody>
+            </table>
+        </div>`;
+    }
+
+    body.innerHTML = html;
+    const modal = new bootstrap.Modal(document.getElementById('dateAppointmentsModal'));
+    modal.show();
+}
+
+function scrollToBlockDate(dateString) {
+    const input = document.getElementById('block-date-input');
+    if (input) {
+        input.value = dateString;
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const reasonInput = document.getElementById('block-reason-input');
+        if (reasonInput) reasonInput.focus();
+    }
+}
+
+function renderCalendarScheduleTable() {
+    const tbody = document.getElementById('cal-schedule-tbody');
+    if (!tbody) return;
+
+    const searchTerm = (document.getElementById('search-cal-schedule') ? document.getElementById('search-cal-schedule').value.toLowerCase().trim() : '');
+
+    // Sort chronologically by date then time_slot
+    let sorted = [...appointmentsList].sort((a, b) => {
+        if (a.date === b.date) {
+            return (a.time_slot || '').localeCompare(b.time_slot || '');
+        }
+        return (a.date || '').localeCompare(b.date || '');
+    });
+
+    if (searchTerm) {
+        sorted = sorted.filter(a => 
+            (a.name && a.name.toLowerCase().includes(searchTerm)) ||
+            (a.phone && a.phone.toLowerCase().includes(searchTerm)) ||
+            (a.date && a.date.toLowerCase().includes(searchTerm)) ||
+            (a.department && a.department.toLowerCase().includes(searchTerm)) ||
+            (a.status && a.status.toLowerCase().includes(searchTerm))
+        );
+    }
+
+    if (sorted.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-4"><i class="bi bi-inbox fs-3 d-block mb-2 opacity-50"></i>No scheduled client appointments match your search.</td></tr>`;
+        return;
+    }
+
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    tbody.innerHTML = sorted.map(a => {
+        const isToday = a.date === todayStr;
+        const isPast = a.date < todayStr;
+        
+        let dateBadge = `<span class="fw-semibold text-dark">${a.date}</span>`;
+        if (isToday) {
+            dateBadge = `<span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1"><i class="bi bi-star-fill me-1"></i>Today (${a.date})</span>`;
+        } else if (isPast) {
+            dateBadge = `<span class="badge bg-light text-muted border px-2 py-1">${a.date}</span>`;
+        }
+
+        let statusBadgeClass = 'badge-pending';
+        if (a.status === 'Confirmed') statusBadgeClass = 'badge-confirmed';
+        else if (a.status === 'Completed') statusBadgeClass = 'badge-completed';
+        else if (a.status === 'Cancelled') statusBadgeClass = 'badge-cancelled';
+
+        const phoneDigits = (a.phone || '').replace(/[^0-9]/g, '');
+        const waMsg = encodeURIComponent(`Hello ${a.name}, this is Dr. Njimia from ACE VET CARE regarding your booking on ${a.date} (${a.time_slot}).`);
+
+        return `
+        <tr>
+            <td>
+                <div>${dateBadge}</div>
+                <small class="text-primary fw-semibold"><i class="bi bi-clock me-1"></i>${escapeHtml(a.time_slot || '2-Hour Slot')}</small>
+            </td>
+            <td>
+                <div class="fw-bold text-dark">${escapeHtml(a.name)}</div>
+                <small class="text-muted"><i class="bi bi-envelope me-1"></i>${escapeHtml(a.email || 'N/A')}</small>
+            </td>
+            <td>
+                <div class="fw-semibold text-dark">${escapeHtml(a.phone)}</div>
+                <small class="text-muted">Ref: ${escapeHtml(a.id || 'APT')}</small>
+            </td>
+            <td>
+                <span class="badge bg-light text-dark border">${escapeHtml(a.department)}</span>
+                <div class="small text-muted text-truncate" style="max-width: 170px;">${escapeHtml(a.message || 'General checkup')}</div>
+            </td>
+            <td>
+                <div class="small fw-semibold text-dark">${escapeHtml(a.doctor || 'Dr. Njimia')}</div>
+            </td>
+            <td>
+                <span class="status-badge ${statusBadgeClass}">${a.status}</span>
+            </td>
+            <td class="text-end">
+                <div class="btn-group btn-group-sm">
+                    <a href="https://wa.me/${phoneDigits}?text=${waMsg}" target="_blank" class="btn btn-outline-success" title="WhatsApp Client">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>
+                    <button class="btn btn-outline-primary" title="Bill Client" onclick="loadClientToInvoice('${a.id}')">
+                        <i class="bi bi-receipt"></i>
+                    </button>
+                    <button class="btn btn-outline-success" title="Confirm Booking" onclick="updateAppointmentStatus('${a.id}', 'Confirmed')">
+                        <i class="bi bi-check-lg"></i>
+                    </button>
+                    <button class="btn btn-outline-danger" title="Cancel Booking" onclick="updateAppointmentStatus('${a.id}', 'Cancelled')">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
 }
 
 // ==========================================
