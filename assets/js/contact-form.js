@@ -99,19 +99,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Build WhatsApp Message for Doctor Dr. Njimia
-            const waText = `🐾 *NEW APPOINTMENT BOOKING - ACE VET CARE* 🐾
-━━━━━━━━━━━━━━━━━━━━━━
-👤 *Client Name:* ${appointmentData.name}
-📞 *Phone Number:* ${appointmentData.phone}
-📧 *Email Address:* ${appointmentData.email}
-📅 *Requested Date:* ${appointmentData.date}
-⏰ *Time Slot (2-Hr):* ${appointmentData.time_slot}
-🩺 *Service / Department:* ${appointmentData.department}
-👨‍⚕️ *Assigned Doctor:* ${appointmentData.doctor}
-📝 *Pet Notes / Message:* ${appointmentData.message || 'None provided'}
-🆔 *Booking Ref:* ${appointmentData.id}
-━━━━━━━━━━━━━━━━━━━━━━
-_Sent via ACE VET CARE Online Portal for Doctor Clarification & Confirmation._`;
+            const waText = `*NEW APPOINTMENT BOOKING - ACE VET CARE*
+----------------------------------------
+*Client Name:* ${appointmentData.name}
+*Phone Number:* ${appointmentData.phone}
+*Email Address:* ${appointmentData.email}
+*Requested Date:* ${appointmentData.date}
+*Time Slot (2-Hr):* ${appointmentData.time_slot}
+*Service / Department:* ${appointmentData.department}
+*Assigned Doctor:* ${appointmentData.doctor}
+*Pet Notes / Message:* ${appointmentData.message || 'None provided'}
+*Booking Ref:* ${appointmentData.id}
+----------------------------------------
+Sent via ACE VET CARE Online Portal for Doctor Clarification & Confirmation.`;
 
             const waDoctorUrl = `https://wa.me/254703824551?text=${encodeURIComponent(waText)}`;
 

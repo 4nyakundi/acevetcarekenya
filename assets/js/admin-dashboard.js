@@ -539,12 +539,12 @@ function sendPatientVaccineReminder(id) {
     if (!patient) return;
 
     const phone = (patient.ownerPhone || '').replace(/[^0-9]/g, '');
-    const message = `*ACE VET CARE KENYA - VACCINATION & HEALTH REMINDER* 🐾\n\n` +
+    const message = `*ACE VET CARE KENYA - VACCINATION & HEALTH REMINDER*\n\n` +
                     `Dear ${patient.ownerName},\n\n` +
                     `This is a friendly reminder from *Dr. Njimia* at *ACE VET CARE* regarding your pet *${patient.petName}* (${patient.breed}).\n\n` +
-                    `💉 *Upcoming Due Vaccine:* ${patient.nextVaccine || 'Core Immunization Booster'}\n` +
-                    `📅 *Recommended Due Date:* ${patient.vaccineDueDate || 'As soon as possible'}\n` +
-                    `📍 *Location:* Muthaiga Square, Off Kiambu Road, Nairobi\n\n` +
+                    `*Upcoming Due Vaccine:* ${patient.nextVaccine || 'Core Immunization Booster'}\n` +
+                    `*Recommended Due Date:* ${patient.vaccineDueDate || 'As soon as possible'}\n` +
+                    `*Location:* Muthaiga Square, Off Kiambu Road, Nairobi\n\n` +
                     `Timely boosters are critical for maintaining ${patient.petName}'s immune protection against lethal viruses.\n\n` +
                     `Reply directly to this WhatsApp message or call *+254 703 824 551* to reserve your 2-hour appointment slot!`;
 
@@ -607,34 +607,34 @@ function applyWhatsAppTemplate(templateKey) {
     let text = '';
 
     if (templateKey === 'confirmation') {
-        text = `*ACE VET CARE - APPOINTMENT CONFIRMATION* 🐾\n\n` +
+        text = `*ACE VET CARE - APPOINTMENT CONFIRMATION*\n\n` +
                `Dear ${name},\n` +
                `Your veterinary appointment for *${pet}* has been confirmed by *Dr. Njimia*.\n\n` +
-               `⏰ *Session Duration:* 2-Hour Comprehensive Clinical Slot\n` +
-               `📍 *Clinic Address:* Muthaiga Square, Off Kiambu Road, Nairobi\n` +
-               `📞 *Emergency / Hotline:* +254 703 824 551\n\n` +
+               `*Session Duration:* 2-Hour Comprehensive Clinical Slot\n` +
+               `*Clinic Address:* Muthaiga Square, Off Kiambu Road, Nairobi\n` +
+               `*Emergency / Hotline:* +254 703 824 551\n\n` +
                `Please arrive 10 minutes prior to your allocated slot. See you soon!`;
     } else if (templateKey === 'vaccine') {
-        text = `*ACE VET CARE - VACCINE BOOSTER REMINDER* 💉\n\n` +
+        text = `*ACE VET CARE - VACCINE BOOSTER REMINDER*\n\n` +
                `Hello ${name},\n` +
                `This is Dr. Njimia from ACE VET CARE. *${pet}* is due for their scheduled booster shot.\n\n` +
                `Keeping vaccinations up-to-date safeguards against deadly Parvovirus, Rabies, and respiratory infections.\n\n` +
                `Please let us know your preferred date this week to reserve a slot.`;
     } else if (templateKey === 'postop') {
-        text = `*ACE VET CARE - POST-SURGERY CARE CHECK-IN* 🩺\n\n` +
+        text = `*ACE VET CARE - POST-SURGERY CARE CHECK-IN*\n\n` +
                `Hi ${name},\n` +
                `This is Dr. Njimia following up on *${pet}*'s recovery after today's clinical procedure.\n\n` +
-               `• Ensure ${pet} stays in a warm, quiet resting area.\n` +
-               `• Offer small sips of water before feeding.\n` +
-               `• Keep the surgical incision dry and check for redness.\n\n` +
+               `* Ensure ${pet} stays in a warm, quiet resting area.\n` +
+               `* Offer small sips of water before feeding.\n` +
+               `* Keep the surgical incision dry and check for redness.\n\n` +
                `How is ${pet} feeling right now? Reply anytime if you have any questions!`;
     } else if (templateKey === 'deworming') {
-        text = `*ACE VET CARE - PREVENTIVE DEWORMING ALERT* 🐾\n\n` +
+        text = `*ACE VET CARE - PREVENTIVE DEWORMING ALERT*\n\n` +
                `Hello ${name},\n` +
                `Routine 3-month deworming is recommended for *${pet}* to maintain optimal intestinal health, coat vitality, and protect your family.\n\n` +
                `Stop by our clinic along Kiambu Road for broad-spectrum deworming tablets or request a delivery package!`;
     } else if (templateKey === 'results') {
-        text = `*ACE VET CARE - MEDICAL TEST RESULTS READY* 🧪\n\n` +
+        text = `*ACE VET CARE - MEDICAL TEST RESULTS READY*\n\n` +
                `Dear ${name},\n` +
                `The diagnostic laboratory test results for *${pet}* are now ready for review.\n\n` +
                `Please give Dr. Njimia a call at *+254 703 824 551* or reply here to discuss the clinical findings and medication prescription.`;
@@ -855,7 +855,7 @@ function sendInvoiceWhatsApp() {
     let itemsText = invoiceItems.map(i => {
         const tot = i.qty * i.price;
         subtotal += tot;
-        return `• ${i.desc} (x${i.qty}) - KES ${tot.toLocaleString()}`;
+        return `- ${i.desc} (x${i.qty}) - KES ${tot.toLocaleString()}`;
     }).join('\n');
 
     const message = `*ACE VET CARE KENYA - OFFICIAL INVOICE*\n\n` +
@@ -866,9 +866,9 @@ function sendInvoiceWhatsApp() {
                     `*Services & Breakdown:*\n${itemsText}\n\n` +
                     `*TOTAL DUE: KES ${subtotal.toLocaleString()}*\n\n` +
                     `*Payment Details:*\n` +
-                    `• M-Pesa Buy Goods / Till: *247247*\n` +
-                    `• Account / Phone: *0703824551*\n\n` +
-                    `Thank you for trusting ACE VET CARE with ${petName}'s healthcare! 🐾`;
+                    `- M-Pesa Buy Goods / Till: *247247*\n` +
+                    `- Account / Phone: *0703824551*\n\n` +
+                    `Thank you for trusting ACE VET CARE with ${petName}'s healthcare!`;
 
     const url = `https://wa.me/${clientPhone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
