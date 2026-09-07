@@ -290,8 +290,23 @@
           </button>
         </li>
         <li class="nav-item" role="presentation">
+          <button class="nav-link" id="patients-tab" data-bs-toggle="tab" data-bs-target="#patients-view" type="button" role="tab" onclick="refreshPatients()">
+            <i class="bi bi-shield-plus"></i> Patients & Vaccines (<span id="patient-count-badge">0</span>)
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="whatsapp-tab" data-bs-toggle="tab" data-bs-target="#whatsapp-hub" type="button" role="tab" onclick="populateWhatsAppHubClients()">
+            <i class="bi bi-whatsapp"></i> WhatsApp Hub
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services-catalog" type="button" role="tab" onclick="loadServicesCatalog()">
+            <i class="bi bi-tag-fill"></i> Service Catalog
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
           <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar-view" type="button" role="tab" onclick="renderAdminCalendar()">
-            <i class="bi bi-calendar-range-fill"></i> Calendar & Date Blocking
+            <i class="bi bi-calendar-range-fill"></i> Calendar & Blocking
           </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -352,11 +367,11 @@
             <div class="col-xl-3 col-sm-6">
               <div class="kpi-card d-flex align-items-center justify-content-between">
                 <div>
-                  <span class="text-muted small fw-semibold d-block">BLOCKED DATES</span>
-                  <h3 class="fw-bold text-danger mb-0" id="stat-blocked">0</h3>
+                  <span class="text-muted small fw-semibold d-block">PATIENTS REGISTERED</span>
+                  <h3 class="fw-bold text-info mb-0" id="stat-patients-count">0</h3>
                 </div>
-                <div class="kpi-icon bg-danger bg-opacity-10 text-danger">
-                  <i class="bi bi-slash-circle"></i>
+                <div class="kpi-icon bg-info bg-opacity-10 text-info">
+                  <i class="bi bi-heart-pulse"></i>
                 </div>
               </div>
             </div>
@@ -377,8 +392,11 @@
                   <option value="Completed">Completed</option>
                   <option value="Cancelled">Cancelled</option>
                 </select>
-                <input type="text" id="search-apt" class="form-control form-control-sm" placeholder="Search client/phone..." style="width: 200px;" oninput="renderAppointmentsTable()">
-                <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
+                <input type="text" id="search-apt" class="form-control form-control-sm" placeholder="Search client/phone..." style="width: 180px;" oninput="renderAppointmentsTable()">
+                <button onclick="exportAppointmentsCSV()" class="btn btn-outline-success btn-sm" title="Export Appointments CSV">
+                  <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export CSV
+                </button>
+                <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm" title="Refresh"><i class="bi bi-arrow-clockwise"></i></button>
               </div>
             </div>
 
@@ -402,6 +420,200 @@
           </div>
 
         </div>
+
+        <!-- ==============================================
+             TAB 2: PATIENTS & VACCINATION TRACKER (EHR)
+             ============================================== -->
+        <div class="tab-pane fade" id="patients-view" role="tabpanel">
+          <div class="card-box">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+              <div>
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-heart-pulse-fill text-danger me-2"></i>Pet Patient Medical Records & Vaccination EHR</h5>
+                <p class="text-muted small mb-0">Track clinical history, diagnosis, prescriptions, and due vaccinations with direct WhatsApp alerts</p>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <input type="text" id="search-patient" class="form-control form-control-sm" placeholder="Search pet/owner/phone..." style="width: 200px;" oninput="renderPatientsTable()">
+                <button type="button" class="btn btn-primary btn-sm fw-semibold rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#addPatientModal">
+                  <i class="bi bi-plus-circle me-1"></i> New Patient Record
+                </button>
+                <button onclick="exportPatientsCSV()" class="btn btn-outline-success btn-sm" title="Export EHR to CSV">
+                  <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export CSV
+                </button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table align-middle table-hover">
+                <thead>
+                  <tr>
+                    <th>Patient ID</th>
+                    <th>Pet & Breed</th>
+                    <th>Owner Contact</th>
+                    <th>Clinical Diagnosis / Prescriptions</th>
+                    <th>Next Due Vaccine</th>
+                    <th>Last Visit</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="patients-tbody">
+                  <!-- Injected by admin-dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             TAB 3: CLINICAL WHATSAPP QUICK-MESSAGE HUB
+             ============================================== -->
+        <div class="tab-pane fade" id="whatsapp-hub" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="card-box h-100">
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-whatsapp text-success me-2"></i>WhatsApp Quick-Message Dispatcher</h5>
+                <p class="text-muted small mb-4">Send pre-formatted clinical notices, reminders, and confirmations directly to client WhatsApp</p>
+
+                <div class="mb-3">
+                  <label class="form-label small fw-semibold text-muted">Select Existing Patient / Client</label>
+                  <select id="wa-recipient-select" class="form-select" onchange="handleWhatsAppClientSelect()">
+                    <option value="">-- Choose Client --</option>
+                  </select>
+                </div>
+
+                <div class="row g-2 mb-3">
+                  <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Client Name</label>
+                    <input type="text" id="wa-target-name" class="form-control" placeholder="Jane Doe">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">WhatsApp Phone</label>
+                    <input type="text" id="wa-target-phone" class="form-control" placeholder="+254 7XX XXX XXX">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Pet Name</label>
+                    <input type="text" id="wa-target-pet" class="form-control" placeholder="Max">
+                  </div>
+                </div>
+
+                <label class="form-label small fw-semibold text-muted">Clinical Communication Templates</label>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                  <button type="button" class="btn btn-outline-primary btn-sm" onclick="applyWhatsAppTemplate('confirmation')">
+                    <i class="bi bi-calendar-check me-1"></i> Booking Confirmed
+                  </button>
+                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="applyWhatsAppTemplate('vaccine')">
+                    <i class="bi bi-shield-plus me-1"></i> Vaccine Booster Due
+                  </button>
+                  <button type="button" class="btn btn-outline-info btn-sm" onclick="applyWhatsAppTemplate('postop')">
+                    <i class="bi bi-bandaid me-1"></i> Post-Surgery Care
+                  </button>
+                  <button type="button" class="btn btn-outline-warning btn-sm" onclick="applyWhatsAppTemplate('deworming')">
+                    <i class="bi bi-capsule me-1"></i> Deworming Alert
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm" onclick="applyWhatsAppTemplate('results')">
+                    <i class="bi bi-file-medical me-1"></i> Lab Results Ready
+                  </button>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label small fw-semibold text-muted">Message Content (Editable)</label>
+                  <textarea id="wa-message-textarea" class="form-control" rows="6" placeholder="Choose a template above or write custom message..." oninput="updateWhatsAppPreview()"></textarea>
+                </div>
+
+                <button type="button" class="btn btn-success w-100 py-2 fw-semibold" onclick="dispatchWhatsAppMessage()">
+                  <i class="bi bi-whatsapp me-2"></i> Launch WhatsApp to Client
+                </button>
+              </div>
+            </div>
+
+            <!-- WhatsApp Live Preview Bubble -->
+            <div class="col-lg-6">
+              <div class="card-box h-100 d-flex flex-column justify-content-between" style="background: #e5ddd5; border-color: #d1d7db;">
+                <div>
+                  <div class="d-flex align-items-center gap-2 pb-3 mb-3 border-bottom border-dark border-opacity-10">
+                    <i class="bi bi-whatsapp text-success fs-4"></i>
+                    <div>
+                      <h6 class="fw-bold mb-0 text-dark">Live Message Preview</h6>
+                      <small class="text-muted">How the client receives it on their phone</small>
+                    </div>
+                  </div>
+
+                  <div class="p-3 bg-white rounded-3 shadow-sm" style="white-space: pre-wrap; font-size: 0.88rem; line-height: 1.6; color: #111b21;" id="wa-live-preview">
+                    Select a client and click a template on the left to generate the message preview...
+                  </div>
+                </div>
+
+                <div class="text-center pt-3 text-muted small">
+                  <i class="bi bi-shield-check me-1"></i> Sent via official ACE VET CARE Dr. Njimia WhatsApp channel
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             TAB 4: VETERINARY SERVICE CATALOG & MASTER PRICING
+             ============================================== -->
+        <div class="tab-pane fade" id="services-catalog" role="tabpanel">
+          <div class="row g-4 mb-4">
+            <!-- Add Service Form -->
+            <div class="col-lg-4">
+              <div class="card-box">
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-plus-circle text-primary me-2"></i>Add Service / Price</h5>
+                <p class="text-muted small mb-3">Add standard veterinary procedure or medication to catalog</p>
+
+                <form id="add-service-form" onsubmit="handleAddCustomService(event)">
+                  <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">Service Name</label>
+                    <input type="text" id="new-srv-name" class="form-control" placeholder="e.g. Microchip Implantation" required>
+                  </div>
+
+                  <div class="row g-2 mb-3">
+                    <div class="col-6">
+                      <label class="form-label small fw-semibold text-muted">Department</label>
+                      <select id="new-srv-category" class="form-select" required>
+                        <option value="Treatment">Treatment</option>
+                        <option value="Vaccination">Vaccination</option>
+                        <option value="Surgery">Surgery</option>
+                        <option value="Grooming">Grooming</option>
+                        <option value="Boarding">Boarding</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label small fw-semibold text-muted">Price (KES)</label>
+                      <input type="number" id="new-srv-price" class="form-control" placeholder="3500" min="0" required>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label small fw-semibold text-muted">Description / Inclusions</label>
+                    <textarea id="new-srv-desc" class="form-control" rows="3" placeholder="Brief details about what the service covers..."></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                    <i class="bi bi-check-circle me-1"></i> Save to Service Catalog
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Service Cards Grid -->
+            <div class="col-lg-8">
+              <div class="card-box">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                  <div>
+                    <h5 class="fw-bold text-dark mb-1">Standard Clinical Services & Pricing</h5>
+                    <p class="text-muted small mb-0">Click "Add to Invoice" to immediately insert any item into active billing</p>
+                  </div>
+                </div>
+
+                <div class="row g-3" id="services-catalog-grid">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <!-- ==============================================
              TAB 2: CALENDAR & DATE BLOCKING
@@ -525,6 +737,9 @@
                   </button>
                   <button class="btn btn-primary w-100 py-2 fw-semibold" onclick="window.print()">
                     <i class="bi bi-printer me-1"></i> Print / Save as PDF
+                  </button>
+                  <button class="btn btn-outline-success w-100 py-2 fw-semibold" onclick="exportInvoicesCSV()">
+                    <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export Invoice as CSV
                   </button>
                 </div>
 
@@ -701,6 +916,107 @@
 
           </div>
         </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       ADD PATIENT MEDICAL RECORD MODAL
+       ============================================== -->
+  <div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0 rounded-4 shadow-lg">
+        <div class="modal-header border-bottom-0 pb-0">
+          <div class="d-flex align-items-center gap-2">
+            <div class="kpi-icon bg-primary bg-opacity-10 text-primary" style="width: 40px; height: 40px;">
+              <i class="bi bi-heart-pulse-fill"></i>
+            </div>
+            <div>
+              <h5 class="modal-title fw-bold text-dark" id="addPatientModalLabel">New Patient & Vaccination Record</h5>
+              <p class="text-muted small mb-0">Record clinical history, diagnosis, and upcoming due vaccinations</p>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#addPatientModal" aria-label="Close"></button>
+        </div>
+
+        <form id="add-patient-form" onsubmit="handleAddPatient(event)">
+          <div class="modal-body py-4">
+            
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-tag-fill me-1"></i> 1. Pet Identification</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Pet Name *</label>
+                <input type="text" id="new-pet-name" class="form-control" placeholder="e.g. Max" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Species</label>
+                <select id="new-pet-species" class="form-select">
+                  <option value="Dog">Dog (Canine)</option>
+                  <option value="Cat">Cat (Feline)</option>
+                  <option value="Bird">Bird (Avian)</option>
+                  <option value="Other">Other Pet</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Breed</label>
+                <input type="text" id="new-pet-breed" class="form-control" placeholder="e.g. German Shepherd / Persian">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Age / DOB</label>
+                <input type="text" id="new-pet-age" class="form-control" placeholder="e.g. 2 Years">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label small fw-semibold text-muted">Weight</label>
+                <input type="text" id="new-pet-weight" class="form-control" placeholder="e.g. 28 kg">
+              </div>
+            </div>
+
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-person-fill me-1"></i> 2. Owner Contact Details</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Owner Full Name *</label>
+                <input type="text" id="new-owner-name" class="form-control" placeholder="e.g. Sarah Mutuku" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">WhatsApp Phone Number *</label>
+                <input type="text" id="new-owner-phone" class="form-control" placeholder="e.g. +254 712 345 678" required>
+              </div>
+            </div>
+
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-clipboard2-pulse-fill me-1"></i> 3. Clinical Findings & Prescriptions</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Clinical Diagnosis / Symptoms</label>
+                <textarea id="new-diagnosis" class="form-control" rows="2" placeholder="e.g. Dermatitis allergy, ear mite infestation"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Administered Treatment / Rx</label>
+                <textarea id="new-treatment" class="form-control" rows="2" placeholder="e.g. Medicated topical wash, Amoxicillin 250mg BID x 7d"></textarea>
+              </div>
+            </div>
+
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-plus me-1"></i> 4. Scheduled Vaccination / Booster</h6>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Vaccine Name</label>
+                <input type="text" id="new-vaccine-name" class="form-control" placeholder="e.g. DHLPP Annual Booster / Rabies Shot">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-muted">Next Due Date</label>
+                <input type="date" id="new-vaccine-due" class="form-control">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer border-top-0 pt-0">
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary rounded-pill px-4 fw-semibold">
+              <i class="bi bi-check-circle me-1"></i> Save Patient Record
+            </button>
+          </div>
+        </form>
 
       </div>
     </div>
