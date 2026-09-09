@@ -12,7 +12,8 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -212,7 +213,7 @@
       color: #b91c1c;
     }
 
-    .btn-group-sm > .btn {
+    .btn-group-sm>.btn {
       padding: 4px 8px;
       font-size: 0.78rem;
       white-space: nowrap;
@@ -232,9 +233,12 @@
       body * {
         visibility: hidden;
       }
-      #invoice-sheet, #invoice-sheet * {
+
+      #invoice-sheet,
+      #invoice-sheet * {
         visibility: visible;
       }
+
       #invoice-sheet {
         position: absolute;
         left: 0;
@@ -244,6 +248,7 @@
         box-shadow: none;
         padding: 0;
       }
+
       .no-print {
         display: none !important;
       }
@@ -254,18 +259,22 @@
       .admin-navbar {
         padding: 10px 14px;
       }
+
       .card-box {
         padding: 16px;
         border-radius: 16px;
         margin-bottom: 20px;
       }
+
       .nav-tabs .nav-link {
         padding: 7px 14px;
         font-size: 0.82rem;
       }
+
       #invoice-sheet {
         padding: 18px 12px;
       }
+
       .auth-card {
         padding: 24px 18px;
         border-radius: 18px;
@@ -277,40 +286,49 @@
       .admin-brand-title {
         font-size: 1rem !important;
       }
+
       .admin-brand-sub {
         display: none !important;
       }
+
       .kpi-card {
         padding: 12px 10px;
         border-radius: 14px;
       }
+
       .kpi-card span {
         font-size: 0.65rem !important;
         letter-spacing: 0px !important;
       }
+
       .kpi-card h3 {
         font-size: 1.15rem !important;
       }
+
       .kpi-icon {
         width: 34px;
         height: 34px;
         font-size: 1rem;
         border-radius: 8px;
       }
+
       #calendar-grid table {
         table-layout: fixed;
         width: 100%;
         min-width: 100% !important;
       }
+
       #calendar-grid td {
         height: 52px !important;
         padding: 4px 2px !important;
         font-size: 0.78rem !important;
       }
+
       #calendar-grid th {
         padding: 6px 2px !important;
         font-size: 0.72rem !important;
       }
+
       #calendar-grid .badge {
         font-size: 0.52rem !important;
         padding: 1px 2px !important;
@@ -319,16 +337,21 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
       .modal-dialog {
         margin: 8px !important;
         max-width: calc(100% - 16px) !important;
       }
+
       .modal-body {
         padding: 14px 12px !important;
       }
-      .modal-header, .modal-footer {
+
+      .modal-header,
+      .modal-footer {
         padding: 12px 14px !important;
       }
+
       .btn {
         font-size: 0.85rem;
       }
@@ -350,7 +373,8 @@
           <label class="form-label small fw-semibold text-muted">Username</label>
           <div class="input-group">
             <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-muted"></i></span>
-            <input type="text" id="admin-username" class="form-control border-start-0" placeholder="e.g. acevet@admin" required>
+            <input type="text" id="admin-username" class="form-control border-start-0" placeholder="e.g. acevet@admin"
+              required>
           </div>
         </div>
 
@@ -358,11 +382,13 @@
           <label class="form-label small fw-semibold text-muted">Password</label>
           <div class="input-group">
             <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
-            <input type="password" id="admin-password" class="form-control border-start-0" placeholder="Enter password" required>
+            <input type="password" id="admin-password" class="form-control border-start-0" placeholder="Enter password"
+              required>
           </div>
         </div>
 
-        <div id="login-error" class="alert alert-danger py-2 small d-none mb-3">Invalid credentials. Please try again.</div>
+        <div id="login-error" class="alert alert-danger py-2 small d-none mb-3">Invalid credentials. Please try again.
+        </div>
 
         <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold rounded-3 shadow-sm">
           Sign In to Portal <i class="bi bi-arrow-right ms-1"></i>
@@ -401,37 +427,44 @@
       <!-- Navigation Tabs (Horizontally swipeable on mobile) -->
       <ul class="nav nav-tabs border-0 mb-3 mb-md-4" id="adminTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments" type="button" role="tab">
+          <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments"
+            type="button" role="tab">
             <i class="bi bi-calendar-check-fill"></i> Appointments (<span id="apt-count-badge">0</span>)
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="patients-tab" data-bs-toggle="tab" data-bs-target="#patients-view" type="button" role="tab" onclick="refreshPatients()">
+          <button class="nav-link" id="patients-tab" data-bs-toggle="tab" data-bs-target="#patients-view" type="button"
+            role="tab" onclick="refreshPatients()">
             <i class="bi bi-shield-plus"></i> Patients & Vaccines (<span id="patient-count-badge">0</span>)
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="whatsapp-tab" data-bs-toggle="tab" data-bs-target="#whatsapp-hub" type="button" role="tab" onclick="populateWhatsAppHubClients()">
+          <button class="nav-link" id="whatsapp-tab" data-bs-toggle="tab" data-bs-target="#whatsapp-hub" type="button"
+            role="tab" onclick="populateWhatsAppHubClients()">
             <i class="bi bi-whatsapp"></i> WhatsApp Hub
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services-catalog" type="button" role="tab" onclick="loadServicesCatalog()">
+          <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services-catalog"
+            type="button" role="tab" onclick="loadServicesCatalog()">
             <i class="bi bi-tag-fill"></i> Service Catalog
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar-view" type="button" role="tab" onclick="renderAdminCalendar()">
+          <button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar-view" type="button"
+            role="tab" onclick="renderAdminCalendar()">
             <i class="bi bi-calendar-range-fill"></i> Calendar & Blocking
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="billing-tab" data-bs-toggle="tab" data-bs-target="#billing" type="button" role="tab">
+          <button class="nav-link" id="billing-tab" data-bs-toggle="tab" data-bs-target="#billing" type="button"
+            role="tab">
             <i class="bi bi-receipt"></i> Invoice & Billing
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="blog-tab" data-bs-toggle="tab" data-bs-target="#blog-manager" type="button" role="tab">
+          <button class="nav-link" id="blog-tab" data-bs-toggle="tab" data-bs-target="#blog-manager" type="button"
+            role="tab">
             <i class="bi bi-newspaper"></i> Blog Manager
           </button>
         </li>
@@ -495,24 +528,30 @@
 
           <!-- Appointments List Table -->
           <div class="card-box">
-            <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-3 mb-4">
+            <div
+              class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-3 mb-4">
               <div>
                 <h5 class="fw-bold text-dark mb-1">Patient Appointments</h5>
                 <p class="text-muted small mb-0">Scheduled 2-hour clinical slots & patient requests</p>
               </div>
               <div class="d-flex flex-wrap gap-2 align-items-center">
-                <select id="filter-status" class="form-select form-select-sm" style="min-width: 120px; flex: 1 1 auto;" onchange="renderAppointmentsTable()">
+                <select id="filter-status" class="form-select form-select-sm" style="min-width: 120px; flex: 1 1 auto;"
+                  onchange="renderAppointmentsTable()">
                   <option value="ALL">All Statuses</option>
                   <option value="Pending">Pending</option>
                   <option value="Confirmed">Confirmed</option>
                   <option value="Completed">Completed</option>
                   <option value="Cancelled">Cancelled</option>
                 </select>
-                <input type="text" id="search-apt" class="form-control form-control-sm" placeholder="Search client/phone..." style="min-width: 150px; flex: 1 1 auto;" oninput="renderAppointmentsTable()">
-                <button onclick="exportAppointmentsCSV()" class="btn btn-outline-success btn-sm" title="Export Appointments CSV">
+                <input type="text" id="search-apt" class="form-control form-control-sm"
+                  placeholder="Search client/phone..." style="min-width: 150px; flex: 1 1 auto;"
+                  oninput="renderAppointmentsTable()">
+                <button onclick="exportAppointmentsCSV()" class="btn btn-outline-success btn-sm"
+                  title="Export Appointments CSV">
                   <i class="bi bi-file-earmark-spreadsheet me-1"></i> <span class="d-none d-sm-inline">Export </span>CSV
                 </button>
-                <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm" title="Refresh"><i class="bi bi-arrow-clockwise"></i></button>
+                <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm" title="Refresh"><i
+                    class="bi bi-arrow-clockwise"></i></button>
               </div>
             </div>
 
@@ -542,14 +581,20 @@
              ============================================== -->
         <div class="tab-pane fade" id="patients-view" role="tabpanel">
           <div class="card-box">
-            <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-3 mb-4">
+            <div
+              class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-3 mb-4">
               <div>
-                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-heart-pulse-fill text-danger me-2"></i>Pet Patient Medical Records & Vaccination EHR</h5>
-                <p class="text-muted small mb-0">Track clinical history, diagnosis, prescriptions, and due vaccinations with direct WhatsApp alerts</p>
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-heart-pulse-fill text-danger me-2"></i>Pet Patient
+                  Medical Records & Vaccination EHR</h5>
+                <p class="text-muted small mb-0">Track clinical history, diagnosis, prescriptions, and due vaccinations
+                  with direct WhatsApp alerts</p>
               </div>
               <div class="d-flex flex-wrap gap-2 align-items-center">
-                <input type="text" id="search-patient" class="form-control form-control-sm" placeholder="Search pet/owner/phone..." style="min-width: 160px; flex: 1 1 auto;" oninput="renderPatientsTable()">
-                <button type="button" class="btn btn-primary btn-sm fw-semibold rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#addPatientModal">
+                <input type="text" id="search-patient" class="form-control form-control-sm"
+                  placeholder="Search pet/owner/phone..." style="min-width: 160px; flex: 1 1 auto;"
+                  oninput="renderPatientsTable()">
+                <button type="button" class="btn btn-primary btn-sm fw-semibold rounded-pill px-3"
+                  data-bs-toggle="modal" data-bs-target="#addPatientModal">
                   <i class="bi bi-plus-circle me-1"></i> New Patient<span class="d-none d-sm-inline"> Record</span>
                 </button>
                 <button onclick="exportPatientsCSV()" class="btn btn-outline-success btn-sm" title="Export EHR to CSV">
@@ -586,8 +631,10 @@
           <div class="row g-4">
             <div class="col-lg-6">
               <div class="card-box h-100">
-                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-whatsapp text-success me-2"></i>WhatsApp Quick-Message Dispatcher</h5>
-                <p class="text-muted small mb-4">Send pre-formatted clinical notices, reminders, and confirmations directly to client WhatsApp</p>
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-whatsapp text-success me-2"></i>WhatsApp
+                  Quick-Message Dispatcher</h5>
+                <p class="text-muted small mb-4">Send pre-formatted clinical notices, reminders, and confirmations
+                  directly to client WhatsApp</p>
 
                 <div class="mb-3">
                   <label class="form-label small fw-semibold text-muted">Select Existing Patient / Client</label>
@@ -613,29 +660,36 @@
 
                 <label class="form-label small fw-semibold text-muted">Clinical Communication Templates</label>
                 <div class="d-flex flex-wrap gap-2 mb-3">
-                  <button type="button" class="btn btn-outline-primary btn-sm" onclick="applyWhatsAppTemplate('confirmation')">
+                  <button type="button" class="btn btn-outline-primary btn-sm"
+                    onclick="applyWhatsAppTemplate('confirmation')">
                     <i class="bi bi-calendar-check me-1"></i> Booking Confirmed
                   </button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" onclick="applyWhatsAppTemplate('vaccine')">
+                  <button type="button" class="btn btn-outline-danger btn-sm"
+                    onclick="applyWhatsAppTemplate('vaccine')">
                     <i class="bi bi-shield-plus me-1"></i> Vaccine Booster Due
                   </button>
                   <button type="button" class="btn btn-outline-info btn-sm" onclick="applyWhatsAppTemplate('postop')">
                     <i class="bi bi-bandaid me-1"></i> Post-Surgery Care
                   </button>
-                  <button type="button" class="btn btn-outline-warning btn-sm" onclick="applyWhatsAppTemplate('deworming')">
+                  <button type="button" class="btn btn-outline-warning btn-sm"
+                    onclick="applyWhatsAppTemplate('deworming')">
                     <i class="bi bi-capsule me-1"></i> Deworming Alert
                   </button>
-                  <button type="button" class="btn btn-outline-secondary btn-sm" onclick="applyWhatsAppTemplate('results')">
+                  <button type="button" class="btn btn-outline-secondary btn-sm"
+                    onclick="applyWhatsAppTemplate('results')">
                     <i class="bi bi-file-medical me-1"></i> Lab Results Ready
                   </button>
                 </div>
 
                 <div class="mb-4">
                   <label class="form-label small fw-semibold text-muted">Message Content (Editable)</label>
-                  <textarea id="wa-message-textarea" class="form-control" rows="6" placeholder="Choose a template above or write custom message..." oninput="updateWhatsAppPreview()"></textarea>
+                  <textarea id="wa-message-textarea" class="form-control" rows="6"
+                    placeholder="Choose a template above or write custom message..."
+                    oninput="updateWhatsAppPreview()"></textarea>
                 </div>
 
-                <button type="button" class="btn btn-success w-100 py-2 fw-semibold" onclick="dispatchWhatsAppMessage()">
+                <button type="button" class="btn btn-success w-100 py-2 fw-semibold"
+                  onclick="dispatchWhatsAppMessage()">
                   <i class="bi bi-whatsapp me-2"></i> Launch WhatsApp to Client
                 </button>
               </div>
@@ -643,7 +697,8 @@
 
             <!-- WhatsApp Live Preview Bubble -->
             <div class="col-lg-6">
-              <div class="card-box h-100 d-flex flex-column justify-content-between" style="background: #e5ddd5; border-color: #d1d7db;">
+              <div class="card-box h-100 d-flex flex-column justify-content-between"
+                style="background: #e5ddd5; border-color: #d1d7db;">
                 <div>
                   <div class="d-flex align-items-center gap-2 pb-3 mb-3 border-bottom border-dark border-opacity-10">
                     <i class="bi bi-whatsapp text-success fs-4"></i>
@@ -653,7 +708,9 @@
                     </div>
                   </div>
 
-                  <div class="p-3 bg-white rounded-3 shadow-sm" style="white-space: pre-wrap; font-size: 0.88rem; line-height: 1.6; color: #111b21;" id="wa-live-preview">
+                  <div class="p-3 bg-white rounded-3 shadow-sm"
+                    style="white-space: pre-wrap; font-size: 0.88rem; line-height: 1.6; color: #111b21;"
+                    id="wa-live-preview">
                     Select a client and click a template on the left to generate the message preview...
                   </div>
                 </div>
@@ -674,13 +731,15 @@
             <!-- Add Service Form -->
             <div class="col-lg-4">
               <div class="card-box">
-                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-plus-circle text-primary me-2"></i>Add Service / Price</h5>
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-plus-circle text-primary me-2"></i>Add Service /
+                  Price</h5>
                 <p class="text-muted small mb-3">Add standard veterinary procedure or medication to catalog</p>
 
                 <form id="add-service-form" onsubmit="handleAddCustomService(event)">
                   <div class="mb-3">
                     <label class="form-label small fw-semibold text-muted">Service Name</label>
-                    <input type="text" id="new-srv-name" class="form-control" placeholder="e.g. Microchip Implantation" required>
+                    <input type="text" id="new-srv-name" class="form-control" placeholder="e.g. Microchip Implantation"
+                      required>
                   </div>
 
                   <div class="row g-2 mb-3">
@@ -702,7 +761,8 @@
 
                   <div class="mb-4">
                     <label class="form-label small fw-semibold text-muted">Description / Inclusions</label>
-                    <textarea id="new-srv-desc" class="form-control" rows="3" placeholder="Brief details about what the service covers..."></textarea>
+                    <textarea id="new-srv-desc" class="form-control" rows="3"
+                      placeholder="Brief details about what the service covers..."></textarea>
                   </div>
 
                   <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
@@ -718,7 +778,8 @@
                 <div class="d-flex align-items-center justify-content-between mb-4">
                   <div>
                     <h5 class="fw-bold text-dark mb-1">Standard Clinical Services & Pricing</h5>
-                    <p class="text-muted small mb-0">Click "Add to Invoice" to immediately insert any item into active billing</p>
+                    <p class="text-muted small mb-0">Click "Add to Invoice" to immediately insert any item into active
+                      billing</p>
                   </div>
                 </div>
 
@@ -736,7 +797,7 @@
              ============================================== -->
         <div class="tab-pane fade" id="calendar-view" role="tabpanel">
           <div class="row g-4">
-            
+
             <!-- Calendar Grid Card -->
             <div class="col-lg-8">
               <div class="card-box">
@@ -746,8 +807,10 @@
                     <p class="text-muted small mb-0">Click any date to view scheduled appointments or block slots</p>
                   </div>
                   <div class="d-flex gap-2">
-                    <button class="btn btn-outline-secondary btn-sm" onclick="changeMonth(-1)"><i class="bi bi-chevron-left"></i> Prev</button>
-                    <button class="btn btn-outline-secondary btn-sm" onclick="changeMonth(1)">Next <i class="bi bi-chevron-right"></i></button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="changeMonth(-1)"><i
+                        class="bi bi-chevron-left"></i> Prev</button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="changeMonth(1)">Next <i
+                        class="bi bi-chevron-right"></i></button>
                   </div>
                 </div>
 
@@ -760,7 +823,8 @@
             <!-- Date Blocking Panel -->
             <div class="col-lg-4">
               <div class="card-box">
-                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-lock-fill text-danger me-2"></i>Block a Date / Time</h5>
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-lock-fill text-danger me-2"></i>Block a Date / Time
+                </h5>
                 <p class="text-muted small mb-3">Prevent client bookings for surgery, holidays, or off-duty hours.</p>
 
                 <form id="block-date-form" onsubmit="handleBlockDate(event)">
@@ -783,7 +847,8 @@
 
                   <div class="mb-4">
                     <label class="form-label small fw-semibold text-muted">Reason / Notes</label>
-                    <input type="text" id="block-reason-input" class="form-control" placeholder="e.g. Dr. Njimia Surgery Schedule / Holiday" required>
+                    <input type="text" id="block-reason-input" class="form-control"
+                      placeholder="e.g. Dr. Njimia Surgery Schedule / Holiday" required>
                   </div>
 
                   <button type="submit" class="btn btn-danger w-100 py-2 fw-semibold">
@@ -794,7 +859,8 @@
                 <hr class="my-4">
 
                 <h6 class="fw-bold text-dark mb-3">Currently Blocked Dates (<span id="blocked-count">0</span>)</h6>
-                <div id="blocked-dates-list" class="d-flex flex-column gap-2" style="max-height: 250px; overflow-y: auto;">
+                <div id="blocked-dates-list" class="d-flex flex-column gap-2"
+                  style="max-height: 250px; overflow-y: auto;">
                   <!-- Injected dynamically -->
                 </div>
               </div>
@@ -806,17 +872,25 @@
           <div class="row mt-4">
             <div class="col-12">
               <div class="card-box">
-                <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-3 mb-4">
+                <div
+                  class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-3 mb-4">
                   <div>
-                    <h5 class="fw-bold text-dark mb-1"><i class="bi bi-calendar3-range text-primary me-2"></i>Client Booking Schedule & Appointment Timeline</h5>
-                    <p class="text-muted small mb-0">Chronological list of all booked clients with their scheduled dates, 2-hour clinical slots, and statuses</p>
+                    <h5 class="fw-bold text-dark mb-1"><i class="bi bi-calendar3-range text-primary me-2"></i>Client
+                      Booking Schedule & Appointment Timeline</h5>
+                    <p class="text-muted small mb-0">Chronological list of all booked clients with their scheduled
+                      dates, 2-hour clinical slots, and statuses</p>
                   </div>
                   <div class="d-flex flex-wrap gap-2 align-items-center">
-                    <input type="text" id="search-cal-schedule" class="form-control form-control-sm" placeholder="Filter client/date/phone..." style="min-width: 160px; flex: 1 1 auto;" oninput="renderCalendarScheduleTable()">
-                    <button onclick="exportAppointmentsCSV()" class="btn btn-outline-success btn-sm" title="Export Schedule CSV">
-                      <i class="bi bi-file-earmark-spreadsheet me-1"></i> <span class="d-none d-sm-inline">Export </span>CSV
+                    <input type="text" id="search-cal-schedule" class="form-control form-control-sm"
+                      placeholder="Filter client/date/phone..." style="min-width: 160px; flex: 1 1 auto;"
+                      oninput="renderCalendarScheduleTable()">
+                    <button onclick="exportAppointmentsCSV()" class="btn btn-outline-success btn-sm"
+                      title="Export Schedule CSV">
+                      <i class="bi bi-file-earmark-spreadsheet me-1"></i> <span class="d-none d-sm-inline">Export
+                      </span>CSV
                     </button>
-                    <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm" title="Refresh Schedule"><i class="bi bi-arrow-clockwise"></i></button>
+                    <button onclick="refreshAppointments()" class="btn btn-outline-primary btn-sm"
+                      title="Refresh Schedule"><i class="bi bi-arrow-clockwise"></i></button>
                   </div>
                 </div>
 
@@ -849,11 +923,12 @@
              ============================================== -->
         <div class="tab-pane fade" id="billing" role="tabpanel">
           <div class="row g-4">
-            
+
             <!-- Invoice Form Controls -->
             <div class="col-lg-4 no-print">
               <div class="card-box">
-                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-file-earmark-text-fill text-primary me-2"></i>Invoice Builder</h5>
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-file-earmark-text-fill text-primary me-2"></i>Invoice
+                  Builder</h5>
                 <p class="text-muted small mb-3">Create official branded veterinary invoices</p>
 
                 <div class="mb-3">
@@ -865,17 +940,20 @@
 
                 <div class="mb-3">
                   <label class="form-label small fw-semibold text-muted">Client Full Name</label>
-                  <input type="text" id="inv-client-name" class="form-control" placeholder="e.g. John Kamau" oninput="updateInvoicePreview()">
+                  <input type="text" id="inv-client-name" class="form-control" placeholder="e.g. John Kamau"
+                    oninput="updateInvoicePreview()">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label small fw-semibold text-muted">Client Phone / WhatsApp</label>
-                  <input type="text" id="inv-client-phone" class="form-control" placeholder="e.g. +254700123456" oninput="updateInvoicePreview()">
+                  <input type="text" id="inv-client-phone" class="form-control" placeholder="e.g. +254700123456"
+                    oninput="updateInvoicePreview()">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label small fw-semibold text-muted">Pet Name & Breed</label>
-                  <input type="text" id="inv-pet-name" class="form-control" placeholder="e.g. Max (German Shepherd)" oninput="updateInvoicePreview()">
+                  <input type="text" id="inv-pet-name" class="form-control" placeholder="e.g. Max (German Shepherd)"
+                    oninput="updateInvoicePreview()">
                 </div>
 
                 <hr>
@@ -906,7 +984,7 @@
             <!-- Invoice Live Preview Sheet -->
             <div class="col-lg-8">
               <div id="invoice-sheet" class="shadow-sm">
-                
+
                 <!-- Invoice Header -->
                 <div class="d-flex justify-content-between align-items-start border-bottom pb-4 mb-4">
                   <div class="d-flex align-items-center gap-3">
@@ -977,7 +1055,8 @@
 
                 <!-- Footer Signoff -->
                 <div class="border-top pt-3 text-center text-muted small">
-                  <p class="mb-1 fw-semibold text-dark">Thank you for choosing ACE VET CARE Kenya for your pet's healthcare!</p>
+                  <p class="mb-1 fw-semibold text-dark">Thank you for choosing ACE VET CARE Kenya for your pet's
+                    healthcare!</p>
                   <p class="mb-0">For medical inquiries or emergency follow-ups, reach us at +254 703 824 551</p>
                 </div>
 
@@ -992,17 +1071,19 @@
              ============================================== -->
         <div class="tab-pane fade" id="blog-manager" role="tabpanel">
           <div class="row g-4">
-            
+
             <!-- Create Article Form -->
             <div class="col-lg-5">
               <div class="card-box">
-                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-pencil-square text-primary me-2"></i>Publish Blog Article</h5>
+                <h5 class="fw-bold text-dark mb-1"><i class="bi bi-pencil-square text-primary me-2"></i>Publish Blog
+                  Article</h5>
                 <p class="text-muted small mb-4">Articles will display live on the public blog page</p>
 
                 <form id="blog-publish-form" onsubmit="handlePublishArticle(event)">
                   <div class="mb-3">
                     <label class="form-label small fw-semibold text-muted">Article Title</label>
-                    <input type="text" id="blog-title-input" class="form-control" placeholder="e.g. 5 Essential Tips for Dog Vaccinations in Nairobi" required>
+                    <input type="text" id="blog-title-input" class="form-control"
+                      placeholder="e.g. 5 Essential Tips for Dog Vaccinations in Nairobi" required>
                   </div>
 
                   <div class="row g-2 mb-3">
@@ -1018,13 +1099,15 @@
                     </div>
                     <div class="col-md-6">
                       <label class="form-label small fw-semibold text-muted">Author</label>
-                      <input type="text" id="blog-author-input" class="form-control" value="Dr. Njimia (Lead Vet)" required>
+                      <input type="text" id="blog-author-input" class="form-control" value="Dr. Njimia (Lead Vet)"
+                        required>
                     </div>
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label small fw-semibold text-muted">Cover Photo Image</label>
-                    <select id="blog-image-select" class="form-select" onchange="document.getElementById('blog-image-input').value = this.value">
+                    <select id="blog-image-select" class="form-select"
+                      onchange="document.getElementById('blog-image-input').value = this.value">
                       <option value="assets/assets/hero-dog.jpg">Primary Dog Photo (hero-dog.jpg)</option>
                       <option value="assets/assets/gal1.JPG">Pet Clinic Care (gal1.JPG)</option>
                       <option value="assets/assets/gal3.JPG">Pet Grooming Session (gal3.JPG)</option>
@@ -1032,17 +1115,20 @@
                       <option value="assets/assets/gal5.jpg">Surgical Operations (gal5.jpg)</option>
                       <option value="assets/assets/gal6.jpg">Boarding Care (gal6.jpg)</option>
                     </select>
-                    <input type="text" id="blog-image-input" class="form-control mt-2" value="assets/assets/hero-dog.jpg" placeholder="Or custom Image URL">
+                    <input type="text" id="blog-image-input" class="form-control mt-2"
+                      value="assets/assets/hero-dog.jpg" placeholder="Or custom Image URL">
                   </div>
 
                   <div class="mb-3">
                     <label class="form-label small fw-semibold text-muted">Short Excerpt / Summary</label>
-                    <textarea id="blog-excerpt-input" class="form-control" rows="2" placeholder="Brief summary of the article..." required></textarea>
+                    <textarea id="blog-excerpt-input" class="form-control" rows="2"
+                      placeholder="Brief summary of the article..." required></textarea>
                   </div>
 
                   <div class="mb-4">
                     <label class="form-label small fw-semibold text-muted">Full Article Body Content</label>
-                    <textarea id="blog-content-input" class="form-control" rows="6" placeholder="Write full article paragraphs here..." required></textarea>
+                    <textarea id="blog-content-input" class="form-control" rows="6"
+                      placeholder="Write full article paragraphs here..." required></textarea>
                   </div>
 
                   <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
@@ -1094,12 +1180,13 @@
               <p class="text-muted small mb-0">Record clinical history, diagnosis, and upcoming due vaccinations</p>
             </div>
           </div>
-          <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#addPatientModal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#addPatientModal"
+            aria-label="Close"></button>
         </div>
 
         <form id="add-patient-form" onsubmit="handleAddPatient(event)">
           <div class="modal-body py-4">
-            
+
             <h6 class="fw-bold text-primary mb-3"><i class="bi bi-tag-fill me-1"></i> 1. Pet Identification</h6>
             <div class="row g-3 mb-4">
               <div class="col-md-6">
@@ -1137,27 +1224,33 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold text-muted">WhatsApp Phone Number *</label>
-                <input type="text" id="new-owner-phone" class="form-control" placeholder="e.g. +254 712 345 678" required>
+                <input type="text" id="new-owner-phone" class="form-control" placeholder="e.g. +254 712 345 678"
+                  required>
               </div>
             </div>
 
-            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-clipboard2-pulse-fill me-1"></i> 3. Clinical Findings & Prescriptions</h6>
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-clipboard2-pulse-fill me-1"></i> 3. Clinical Findings
+              & Prescriptions</h6>
             <div class="row g-3 mb-4">
               <div class="col-md-6">
                 <label class="form-label small fw-semibold text-muted">Clinical Diagnosis / Symptoms</label>
-                <textarea id="new-diagnosis" class="form-control" rows="2" placeholder="e.g. Dermatitis allergy, ear mite infestation"></textarea>
+                <textarea id="new-diagnosis" class="form-control" rows="2"
+                  placeholder="e.g. Dermatitis allergy, ear mite infestation"></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold text-muted">Administered Treatment / Rx</label>
-                <textarea id="new-treatment" class="form-control" rows="2" placeholder="e.g. Medicated topical wash, Amoxicillin 250mg BID x 7d"></textarea>
+                <textarea id="new-treatment" class="form-control" rows="2"
+                  placeholder="e.g. Medicated topical wash, Amoxicillin 250mg BID x 7d"></textarea>
               </div>
             </div>
 
-            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-plus me-1"></i> 4. Scheduled Vaccination / Booster</h6>
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-plus me-1"></i> 4. Scheduled Vaccination /
+              Booster</h6>
             <div class="row g-3">
               <div class="col-md-6">
                 <label class="form-label small fw-semibold text-muted">Vaccine Name</label>
-                <input type="text" id="new-vaccine-name" class="form-control" placeholder="e.g. DHLPP Annual Booster / Rabies Shot">
+                <input type="text" id="new-vaccine-name" class="form-control"
+                  placeholder="e.g. DHLPP Annual Booster / Rabies Shot">
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold text-muted">Next Due Date</label>
@@ -1168,7 +1261,8 @@
           </div>
 
           <div class="modal-footer border-top-0 pt-0">
-            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+              data-bs-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary rounded-pill px-4 fw-semibold">
               <i class="bi bi-check-circle me-1"></i> Save Patient Record
             </button>
@@ -1182,7 +1276,8 @@
   <!-- ==============================================
        EDIT PATIENT MEDICAL RECORD MODAL
        ============================================== -->
-  <div class="modal fade" id="editPatientModal" tabindex="-1" aria-labelledby="editPatientModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editPatientModal" tabindex="-1" aria-labelledby="editPatientModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content border-0 rounded-4 shadow-lg">
         <div class="modal-header border-bottom-0 pb-0">
@@ -1191,7 +1286,8 @@
               <i class="bi bi-pencil-square"></i>
             </div>
             <div>
-              <h5 class="modal-title fw-bold text-dark" id="editPatientModalLabel">Edit Patient Medical Record & EHR</h5>
+              <h5 class="modal-title fw-bold text-dark" id="editPatientModalLabel">Edit Patient Medical Record & EHR
+              </h5>
               <p class="text-muted small mb-0">Update clinical history, prescriptions, and next due vaccination</p>
             </div>
           </div>
@@ -1201,7 +1297,7 @@
         <form id="edit-patient-form" onsubmit="handleEditPatient(event)">
           <input type="hidden" id="edit-patient-id">
           <div class="modal-body py-4">
-            
+
             <h6 class="fw-bold text-primary mb-3"><i class="bi bi-tag-fill me-1"></i> 1. Pet Identification</h6>
             <div class="row g-3 mb-4">
               <div class="col-md-6">
@@ -1243,7 +1339,8 @@
               </div>
             </div>
 
-            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-clipboard2-pulse-fill me-1"></i> 3. Clinical Findings & Prescriptions</h6>
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-clipboard2-pulse-fill me-1"></i> 3. Clinical Findings
+              & Prescriptions</h6>
             <div class="row g-3 mb-4">
               <div class="col-md-6">
                 <label class="form-label small fw-semibold text-muted">Clinical Diagnosis / Symptoms</label>
@@ -1255,7 +1352,8 @@
               </div>
             </div>
 
-            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-plus me-1"></i> 4. Scheduled Vaccination / Booster & Visits</h6>
+            <h6 class="fw-bold text-primary mb-3"><i class="bi bi-shield-plus me-1"></i> 4. Scheduled Vaccination /
+              Booster & Visits</h6>
             <div class="row g-3">
               <div class="col-md-4">
                 <label class="form-label small fw-semibold text-muted">Vaccine Name</label>
@@ -1274,7 +1372,8 @@
           </div>
 
           <div class="modal-footer border-top-0 pt-0">
-            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+              data-bs-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary rounded-pill px-4 fw-semibold">
               <i class="bi bi-check-circle me-1"></i> Save Changes
             </button>
@@ -1288,7 +1387,8 @@
   <!-- ==============================================
        CALENDAR DATE APPOINTMENTS POPUP MODAL
        ============================================== -->
-  <div class="modal fade" id="dateAppointmentsModal" tabindex="-1" aria-labelledby="dateAppointmentsModalLabel" aria-hidden="true">
+  <div class="modal fade" id="dateAppointmentsModal" tabindex="-1" aria-labelledby="dateAppointmentsModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content border-0 rounded-4 shadow-lg">
         <div class="modal-header border-bottom-0 pb-0">
@@ -1297,8 +1397,10 @@
               <i class="bi bi-calendar-event"></i>
             </div>
             <div>
-              <h5 class="modal-title fw-bold text-dark" id="dateAppointmentsModalLabel">Appointments on Selected Date</h5>
-              <p class="text-muted small mb-0" id="dateAppointmentsModalSub">Scheduled clients and 2-hour clinical slots</p>
+              <h5 class="modal-title fw-bold text-dark" id="dateAppointmentsModalLabel">Appointments on Selected Date
+              </h5>
+              <p class="text-muted small mb-0" id="dateAppointmentsModalSub">Scheduled clients and 2-hour clinical slots
+              </p>
             </div>
           </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1309,7 +1411,8 @@
         </div>
 
         <div class="modal-footer border-top-0 pt-0">
-          <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+            data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -1325,6 +1428,16 @@
 
   <!-- Admin Portal Script -->
   <script src="assets/js/admin-dashboard.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17470260134"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'AW-17470260134');
+  </script>
 
 </body>
 
