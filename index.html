@@ -19,61 +19,126 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Schema.org VeterinaryCare Structured Data -->
+  <!-- XML Sitemap -->
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+  <!-- Schema.org VeterinaryCare & Sitelinks Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "VeterinaryCare",
-    "name": "ACE VET CARE Kenya",
-    "image": "https://www.acevetcare.co.ke/assets/assets/ACE%20VET%20CARE.png",
-    "@id": "https://www.acevetcare.co.ke",
-    "url": "https://www.acevetcare.co.ke",
-    "telephone": "+254703824551",
-    "email": "acevetcare@gmail.com",
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Off Kiambu Road, Riabai Road, Muthaiga Square",
-      "addressLocality": "Kiambu / Nairobi",
-      "addressCountry": "KE"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": -1.1555829,
-      "longitude": 36.8388085
-    },
-    "openingHoursSpecification": [
+    "@graph": [
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "08:00",
-        "closes": "18:00"
+        "@type": "VeterinaryCare",
+        "@id": "https://www.acevetcare.co.ke/#clinic",
+        "name": "ACE VET CARE Kenya",
+        "image": "https://www.acevetcare.co.ke/assets/assets/ACE%20VET%20CARE.png",
+        "url": "https://www.acevetcare.co.ke",
+        "telephone": "+254703824551",
+        "email": "acevetcare@gmail.com",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Off Kiambu Road, Riabai Road, Muthaiga Square",
+          "addressLocality": "Kiambu / Nairobi",
+          "addressCountry": "KE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -1.1555829,
+          "longitude": 36.8388085
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "16:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Sunday",
+            "opens": "10:00",
+            "closes": "14:00"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Veterinary Services",
+          "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "General Health Check-ups"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pet Vaccinations"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pet Grooming"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "24/7 Emergency Care"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Veterinary Surgery"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pet Boarding"}}
+          ]
+        }
       },
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "09:00",
-        "closes": "16:00"
+        "@type": "WebSite",
+        "@id": "https://www.acevetcare.co.ke/#website",
+        "url": "https://www.acevetcare.co.ke",
+        "name": "ACE VET CARE Kenya",
+        "publisher": {
+          "@id": "https://www.acevetcare.co.ke/#clinic"
+        }
       },
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Sunday",
-        "opens": "10:00",
-        "closes": "14:00"
+        "@type": "ItemList",
+        "@id": "https://www.acevetcare.co.ke/#sitelinks",
+        "name": "ACE VET CARE Sitelinks Navigation",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "Veterinary Services",
+            "description": "Routine checkups, clinical treatments, vaccinations, surgery, and 24/7 emergency pet care.",
+            "url": "https://www.acevetcare.co.ke/#services"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "Book Appointment",
+            "description": "Online veterinary appointment booking with Dr. K. Njimia and 2-hour clinical slots.",
+            "url": "https://www.acevetcare.co.ke/#appointment"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Pet Health Blog",
+            "description": "Expert advice, tips, and insights on dog and cat care, vaccines, and grooming.",
+            "url": "https://www.acevetcare.co.ke/blog-details.html"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "Clinical Departments",
+            "description": "Grooming, surgery, veterinary boarding, inpatient treatment, and vaccination triage.",
+            "url": "https://www.acevetcare.co.ke/#departments"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 5,
+            "name": "About ACE VET CARE",
+            "description": "Learn about our compassionate veterinary staff, clinic history, and facilities along Kiambu Road.",
+            "url": "https://www.acevetcare.co.ke/#about"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 6,
+            "name": "Contact & Location",
+            "description": "Find our clinic at Muthaiga Square, Off Kiambu Road, Nairobi or call +254 703 824 551.",
+            "url": "https://www.acevetcare.co.ke/#contact"
+          }
+        ]
       }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Veterinary Services",
-      "itemListElement": [
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "General Health Check-ups"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pet Vaccinations"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pet Grooming"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "24/7 Emergency Care"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Veterinary Surgery"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Pet Boarding"}}
-      ]
-    }
+    ]
   }
   </script>
 

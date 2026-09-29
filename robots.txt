@@ -1,0 +1,10 @@
+# robots.txt for ACE VET CARE Kenya
+# https://www.acevetcare.co.ke
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+# XML Sitemaps
+Sitemap: https://www.acevetcare.co.ke/sitemap.xml
+Sitemap: https://www.acevetcare.co.ke/sitelink.xml

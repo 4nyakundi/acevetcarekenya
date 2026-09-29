@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+                            http://www.google.com/schemas/sitemap-image/1.1 
+                            http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+
+  <!-- 1. Homepage & Core Clinic Hub -->
+  <url>
+    <loc>https://www.acevetcare.co.ke/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/ACE%20VET%20CARE.png</image:loc>
+      <image:title>ACE VET CARE Kenya - Premier Veterinary Clinic</image:title>
+      <image:caption>Official logo of ACE VET CARE Kenya located along Kiambu Road, Nairobi.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/hero-dog.jpg</image:loc>
+      <image:title>Compassionate Pet Care and Surgery</image:title>
+      <image:caption>Comprehensive veterinary medicine, pet grooming, vaccinations, and emergency clinical care.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/Njimia.jpg</image:loc>
+      <image:title>Dr. K. Njimia - Lead Veterinary Surgeon</image:title>
+      <image:caption>Experienced veterinary doctor and clinical practitioner at ACE VET CARE.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/gal2.JPG</image:loc>
+      <image:title>ACE VET CARE Clinic Facilities and Pharmacy</image:title>
+      <image:caption>State-of-the-art veterinary clinic facilities at Muthaiga Square, Kiambu Road.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 2. Veterinary Blog Hub & Health Articles -->
+  <url>
+    <loc>https://www.acevetcare.co.ke/blog-details.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- 3. Article: 5 Signs Your Pet Needs a Vet -->
+  <url>
+    <loc>https://www.acevetcare.co.ke/blog-single.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/hero-dog.jpg</image:loc>
+      <image:title>5 Signs Your Pet Needs a Vet</image:title>
+      <image:caption>Essential symptoms and warning signs that indicate your dog or cat requires immediate veterinary attention.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 4. Article: Importance of Regular Vaccinations for Your Pet -->
+  <url>
+    <loc>https://www.acevetcare.co.ke/blog-single2.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/gal1.JPG</image:loc>
+      <image:title>Importance of Regular Pet Vaccinations</image:title>
+      <image:caption>Protecting dogs and cats in Nairobi from Rabies, Parvovirus, and feline viral diseases.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 5. Article: Essential Grooming Tips for a Happy, Healthy Pet -->
+  <url>
+    <loc>https://www.acevetcare.co.ke/blog-single3.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/gal3.JPG</image:loc>
+      <image:title>Essential Pet Grooming and Hygiene Tips</image:title>
+      <image:caption>Regular brushing, tick/flea prevention, and medicated baths for healthy coat and skin.</image:caption>
+    </image:image>
+  </url>
+
+</urlset>
