@@ -35,7 +35,20 @@
     </image:image>
   </url>
 
-  <!-- 2. Veterinary Blog Hub & Health Articles -->
+  <!-- 2. Online Appointment Booking (Google Ads & Patient Scheduling) -->
+  <url>
+    <loc>https://www.acevetcare.co.ke/appointment.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://www.acevetcare.co.ke/assets/assets/gal2.JPG</image:loc>
+      <image:title>Book an Appointment with Dr. Njimia</image:title>
+      <image:caption>Schedule online veterinary appointments with 2-hour clinical slots at ACE VET CARE Kenya.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 3. Veterinary Blog Hub & Health Articles -->
   <url>
     <loc>https://www.acevetcare.co.ke/blog-details.html</loc>
     <lastmod>2026-09-28</lastmod>
