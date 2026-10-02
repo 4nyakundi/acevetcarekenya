@@ -56,14 +56,13 @@ function loadLocalFallback(elementId) {
               <li><a href="index.html#hero" class="active">Home</a></li>
               <li><a href="index.html#about">About Us</a></li>
               <li><a href="index.html#services">Services</a></li>
-              <li><a href="index.html#departments">Departments</a></li>
-              <li><a href="index.html#doctors">Doctors</a></li>
+              <li><a href="appointment.html">Booking</a></li>
               <li><a href="blog-details.html">Blog</a></li>
               <li><a href="index.html#contact">Contact</a></li>
             </ul>
           </nav>
           <div class="d-flex align-items-center gap-2">
-            <a class="cta-btn d-none d-sm-flex align-items-center" href="index.html#appointment"><i class="bi bi-calendar-event me-2"></i> Make Appointment</a>
+            <a class="cta-btn d-none d-sm-flex align-items-center" href="appointment.html"><i class="bi bi-calendar-event me-2"></i> Make Appointment</a>
             <button type="button" class="mobile-nav-toggle d-xl-none" aria-label="Toggle Navigation" title="Toggle Navigation">
               <span class="burger-bar bar-1"></span>
               <span class="burger-bar bar-2"></span>
@@ -91,14 +90,13 @@ function loadLocalFallback(elementId) {
           <li><a href="index.html#hero" class="active"><span class="nav-icon"><i class="bi bi-house-door-fill"></i></span><span class="nav-text">Home</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
           <li><a href="index.html#about"><span class="nav-icon"><i class="bi bi-info-circle-fill"></i></span><span class="nav-text">About Us</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
           <li><a href="index.html#services"><span class="nav-icon"><i class="bi bi-grid-fill"></i></span><span class="nav-text">Services</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
-          <li><a href="index.html#departments"><span class="nav-icon"><i class="bi bi-building-fill"></i></span><span class="nav-text">Departments</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
-          <li><a href="index.html#doctors"><span class="nav-icon"><i class="bi bi-person-badge-fill"></i></span><span class="nav-text">Doctors</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
+          <li><a href="appointment.html"><span class="nav-icon"><i class="bi bi-calendar-check-fill"></i></span><span class="nav-text">Booking</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
           <li><a href="blog-details.html"><span class="nav-icon"><i class="bi bi-journal-text"></i></span><span class="nav-text">Blog</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
           <li><a href="index.html#contact"><span class="nav-icon"><i class="bi bi-geo-alt-fill"></i></span><span class="nav-text">Contact</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
           <li><a href="admin.html" target="_blank" class="staff-link"><span class="nav-icon"><i class="bi bi-shield-lock-fill"></i></span><span class="nav-text">Staff Portal</span><i class="bi bi-chevron-right ms-auto arrow-icon"></i></a></li>
         </ul>
         <div class="mobile-drawer-actions">
-          <a href="index.html#appointment" class="btn btn-primary rounded-pill w-100 mb-2 py-2 fw-semibold"><i class="bi bi-calendar-check-fill me-2"></i> Book Appointment</a>
+          <a href="appointment.html" class="btn btn-primary rounded-pill w-100 mb-2 py-2 fw-semibold"><i class="bi bi-calendar-check-fill me-2"></i> Book Appointment</a>
           <a href="https://wa.me/254703824551?text=Hello%20Ace%20Vet%20Care,%20I%20would%20like%20to%20inquire%20about%20veterinary%20services." target="_blank" class="btn btn-success rounded-pill w-100 py-2 fw-semibold"><i class="bi bi-whatsapp me-2"></i> WhatsApp Chat</a>
           <div class="emergency-badge mt-2 text-center">
             <a href="tel:+254703824551" class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 rounded-pill px-3 py-2 w-100 d-block text-decoration-none">
@@ -160,6 +158,7 @@ function loadLocalFallback(elementId) {
             <li><a href="index.html#hero">Home</a></li>
             <li><a href="index.html#about">About us</a></li>
             <li><a href="index.html#services">Services</a></li>
+            <li><a href="appointment.html">Book Appointment</a></li>
             <li><a href="blog-details.html">Blog</a></li>
             <li><a href="admin.html" target="_blank"><i class="bi bi-shield-lock me-1"></i>Staff Portal</a></li>
           </ul> 
@@ -182,7 +181,7 @@ function loadLocalFallback(elementId) {
     <i class="bi bi-whatsapp"></i>
     <span>WhatsApp</span>
   </a>
-  <a href="index.html#appointment" class="mobile-action-btn btn-book" aria-label="Book Appointment">
+  <a href="appointment.html" class="mobile-action-btn btn-book" aria-label="Book Appointment">
     <i class="bi bi-calendar-check-fill"></i>
     <span>Book Visit</span>
   </a>

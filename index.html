@@ -1009,7 +1009,7 @@
                   <label class="form-label small fw-semibold text-muted mb-1">Appointment Date</label>
                   <input type="date" name="date" id="appointment-date" class="form-control" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-12">
                   <label class="form-label small fw-semibold text-muted mb-1">2-Hour Session Timing</label>
                   <select name="time_slot" id="appointment-time-slot" class="form-select" required>
                     <option value="">Select 2-Hour Session</option>
@@ -1020,21 +1020,22 @@
                     <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM (Evening Slot)</option>
                   </select>
                 </div>
-                <div class="col-md-6">
-                  <select name="department" class="form-select" required>
-                    <option value="">Select Service</option>
-                    <option value="General Health Check-Ups">General Health Check-up</option>
-                    <option value="Emergency Care">Emergency Care</option>
-                    <option value="Grooming">Grooming</option>
-                    <option value="Vaccinations">Vaccinations</option>
-                    <option value="Surgery">Surgery</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <select name="doctor" class="form-select" required>
-                    <option value="">Select Doctor</option>
-                    <option value="Dr Njimia">Dr. Njimia</option>
-                  </select>
+                <div class="col-12">
+                  <div class="p-3 bg-light rounded-3 d-flex align-items-center justify-content-between flex-wrap gap-2 border">
+                    <div class="d-flex align-items-center gap-2">
+                      <img src="assets/assets/Njimia.jpg" alt="Dr. Njimia" class="rounded-circle object-fit-cover shadow-sm" width="38" height="38">
+                      <div>
+                        <span class="fw-semibold text-dark d-block" style="font-size: 0.92rem;">Consulting Doctor: Dr. K. Njimia</span>
+                        <small class="text-muted"><i class="fas fa-envelope text-primary me-1"></i>Confirmation email sent from <strong>dr.njimia@acevetcare.co.ke</strong></small>
+                      </div>
+                    </div>
+                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-2 py-1 small">
+                      <i class="fab fa-whatsapp me-1"></i>WhatsApp Instant Confirmation
+                    </span>
+                  </div>
+                  <input type="hidden" name="department" value="General Veterinary Care">
+                  <input type="hidden" name="doctor" value="Dr. K. Njimia">
+                  <input type="hidden" name="doctor_email" value="dr.njimia@acevetcare.co.ke">
                 </div>
                 <div class="col-12">
                   <textarea name="message" class="form-control" rows="4" placeholder="Additional Notes"></textarea>

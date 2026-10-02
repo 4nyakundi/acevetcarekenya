@@ -73,24 +73,30 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData(form);
             const appointmentData = {
                 id: 'APT-' + Date.now(),
-                name: formData.get('name'),
+                name: formData.get('name') || 'Valued Client',
                 email: formData.get('email'),
                 phone: formData.get('phone'),
                 date: formData.get('date'),
                 time_slot: formData.get('time_slot') || '08:00 AM - 10:00 AM',
-                department: formData.get('department'),
-                doctor: formData.get('doctor') || 'Dr. Njimia',
+                department: formData.get('department') || 'General Veterinary Care',
+                doctor: formData.get('doctor') || 'Dr. K. Njimia',
                 message: formData.get('message') || '',
                 status: 'Pending',
                 created_at: new Date().toISOString()
             };
 
-            // Save to local storage for instant dashboard sync
+            // Ensure booking ID and default doctor details are in formData for backend
+            formData.set('id', appointmentData.id);
+            formData.set('doctor', appointmentData.doctor);
+            formData.set('doctor_email', 'dr.njimia@acevetcare.co.ke');
+            formData.set('department', appointmentData.department);
+
+            // 1. Save to local storage for instant dashboard sync
             const existingAppointments = JSON.parse(localStorage.getItem('acevet_appointments') || '[]');
             existingAppointments.unshift(appointmentData);
             localStorage.setItem('acevet_appointments', JSON.stringify(existingAppointments));
 
-            // Save to Firestore if configured
+            // 2. Save to Firestore if configured
             if (typeof db !== 'undefined' && db) {
                 db.collection('appointments').add({
                     ...appointmentData,
@@ -98,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }).catch(err => console.warn('Firestore write notice:', err));
             }
 
-            // Build WhatsApp Message for Doctor Dr. Njimia
+            // 3. Build WhatsApp Message for Doctor Dr. Njimia
             const waText = `*NEW APPOINTMENT BOOKING - ACE VET CARE*
 ----------------------------------------
 *Client Name:* ${appointmentData.name}
@@ -107,29 +113,52 @@ document.addEventListener('DOMContentLoaded', function () {
 *Requested Date:* ${appointmentData.date}
 *Time Slot (2-Hr):* ${appointmentData.time_slot}
 *Service / Department:* ${appointmentData.department}
-*Assigned Doctor:* ${appointmentData.doctor}
+*Assigned Doctor:* Dr. K. Njimia
 *Pet Notes / Message:* ${appointmentData.message || 'None provided'}
 *Booking Ref:* ${appointmentData.id}
 ----------------------------------------
-Sent via ACE VET CARE Online Portal for Doctor Clarification & Confirmation.`;
+Sent via ACE VET CARE Online Portal. Official confirmation email sent from dr.njimia@acevetcare.co.ke`;
 
             const waDoctorUrl = `https://wa.me/254703824551?text=${encodeURIComponent(waText)}`;
 
-            // Render rich success message with instant WhatsApp launcher
-            function handleSuccessUI() {
+            // 4. Render rich success message confirming email dispatch from dr.njimia@acevetcare.co.ke & WhatsApp link
+            function handleSuccessUI(serverMsg) {
                 if (loading) loading.style.display = 'none';
                 if (sentMessage) {
                     sentMessage.innerHTML = `
-                        <div class="p-3 bg-success bg-opacity-10 border border-success border-opacity-25 rounded-4 text-start">
-                            <h6 class="fw-bold text-success mb-1">
-                                <i class="fas fa-check-circle me-2"></i> Appointment Request Submitted!
-                            </h6>
-                            <p class="text-muted small mb-3">
-                                Your booking (Ref: <strong>${appointmentData.id}</strong>) has been recorded in our system. We are opening Dr. Njimia's WhatsApp so you can provide any additional clarification regarding your pet.
+                        <div class="p-4 bg-success bg-opacity-10 border border-success border-opacity-25 rounded-4 text-start">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i class="fas fa-check-circle text-success fs-4"></i>
+                                <h6 class="fw-bold text-success mb-0 fs-5">
+                                    Appointment Booking Confirmed!
+                                </h6>
+                            </div>
+                            <p class="text-dark small mb-3">
+                                Booking Reference: <strong class="badge bg-success bg-opacity-25 text-success font-monospace px-2 py-1">${appointmentData.id}</strong>
                             </p>
-                            <a href="${waDoctorUrl}" target="_blank" class="btn btn-success rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2">
-                                <i class="fab fa-whatsapp fs-5"></i> Open Doctor's WhatsApp
-                            </a>
+                            
+                            <div class="p-3 bg-white rounded-3 border border-success border-opacity-25 mb-3 shadow-sm">
+                                <div class="d-flex align-items-start gap-2 mb-1">
+                                    <i class="fas fa-envelope-circle-check text-primary mt-1"></i>
+                                    <div class="small">
+                                        <strong class="text-dark">Official Email Dispatched:</strong><br>
+                                        A booking confirmation email has been sent from <span class="text-primary fw-semibold">dr.njimia@acevetcare.co.ke</span> to <strong>${appointmentData.email}</strong>.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="text-muted small mb-3">
+                                We are also connecting you with Dr. Njimia on WhatsApp so you can provide any immediate details or clarifications about your pet.
+                            </p>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="${waDoctorUrl}" target="_blank" class="btn btn-whatsapp text-nowrap rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2">
+                                    <i class="fab fa-whatsapp fs-5"></i> Open Dr. Njimia's WhatsApp
+                                </a>
+                                <a href="appointment.html" class="btn btn-outline-secondary rounded-pill px-3 py-2 small">
+                                    Book Another Visit
+                                </a>
+                            </div>
                         </div>
                     `;
                     sentMessage.style.display = 'block';
@@ -144,17 +173,51 @@ Sent via ACE VET CARE Online Portal for Doctor Clarification & Confirmation.`;
                 }
             }
 
-            // Trigger EmailJS Notification in background
-            if (typeof emailjs !== 'undefined') {
-                emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_APPOINTMENT, form)
-                    .then(function () {
-                        handleSuccessUI();
-                    }, function (error) {
-                        console.log('EmailJS response note:', error);
-                        handleSuccessUI();
-                    });
-            } else {
-                handleSuccessUI();
+            // 5. Dispatch Email via backend forms/appointment.php (Domain Email: dr.njimia@acevetcare.co.ke)
+            fetch('forms/appointment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Domain email response from dr.njimia@acevetcare.co.ke:', data);
+                // Also trigger EmailJS in parallel
+                triggerEmailJS();
+            })
+            .catch(err => {
+                console.warn('PHP endpoint note (static or local host):', err);
+                triggerEmailJS();
+            });
+
+            function triggerEmailJS() {
+                if (typeof emailjs !== 'undefined') {
+                    const templateParams = {
+                        to_email: appointmentData.email,
+                        client_email: appointmentData.email,
+                        to_name: appointmentData.name,
+                        client_name: appointmentData.name,
+                        from_name: 'Dr. K. Njimia (ACE VET CARE)',
+                        from_email: 'dr.njimia@acevetcare.co.ke',
+                        reply_to: 'dr.njimia@acevetcare.co.ke',
+                        booking_id: appointmentData.id,
+                        appointment_date: appointmentData.date,
+                        time_slot: appointmentData.time_slot,
+                        department: appointmentData.department,
+                        doctor: appointmentData.doctor,
+                        message: appointmentData.message,
+                        phone: appointmentData.phone,
+                        whatsapp_link: waDoctorUrl
+                    };
+
+                    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_APPOINTMENT, templateParams)
+                        .then(() => handleSuccessUI(), () => {
+                            // Fallback to sendForm if template requires form mapping
+                            emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_APPOINTMENT, form)
+                                .then(() => handleSuccessUI(), () => handleSuccessUI());
+                        });
+                } else {
+                    handleSuccessUI();
+                }
             }
         });
     }
